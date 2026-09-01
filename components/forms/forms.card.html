@@ -1,0 +1,57 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Forms" subtitle="Field, input, select, checkbox, radio, switch, segmented" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:14px 16px;background:var(--surface-card);font-family:var(--font-sans);color:var(--text-body)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.lbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:7px}
+.grid{display:grid;gap:16px 26px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Field, Input, Select, Checkbox, Radio, Switch, SegmentedControl } = window.BasisDesignSystem_6e7350;
+function Demo(){
+  const [q,setQ]=React.useState('XOM US');
+  const [chk,setChk]=React.useState(true);
+  const [r,setR]=React.useState('net');
+  const [sw,setSw]=React.useState(true);
+  const [seg,setSeg]=React.useState('mtd');
+  return (
+    <div className="grid" style={{gridTemplateColumns:'1fr 1fr'}}>
+      <Field label="Search" htmlFor="s"><Input id="s" iconLeft="search" value={q} onChange={e=>setQ(e.target.value)} onClear={()=>setQ('')} placeholder="Ticker, ISIN or name" /></Field>
+      <Field label="Position limit" hint="Hard limit, % NAV"><Input mono suffix="% NAV" defaultValue="7.50" /></Field>
+      <Field label="Benchmark"><Select iconLeft="line-chart" options={[{value:'spx',label:'S&P 500'},{value:'rty',label:'Russell 2000'},{value:'msci',label:'MSCI World'}]} /></Field>
+      <Field label="Notional" error="Exceeds sleeve capacity"><Input mono prefix="$" defaultValue="1,250,000" invalid /></Field>
+      <div>
+        <div className="lbl">Size sm / md / lg</div>
+        <div className="col" style={{gap:6}}>
+          <Input size="sm" placeholder="Small" /><Input size="md" placeholder="Medium" /><Input size="lg" placeholder="Large" />
+        </div>
+      </div>
+      <div className="col">
+        <div>
+          <div className="lbl">Segmented</div>
+          <SegmentedControl size="sm" value={seg} onChange={setSeg} options={[{value:'1d',label:'1D'},{value:'1w',label:'1W'},{value:'mtd',label:'MTD'},{value:'ytd',label:'YTD'}]} />
+        </div>
+        <div>
+          <div className="lbl">Checkbox · switch · radio</div>
+          <div className="col" style={{gap:8}}>
+            <div className="row" style={{gap:20}}>
+              <Checkbox checked={chk} onChange={setChk} label="Include cash" />
+              <Checkbox indeterminate label="Partial" />
+              <Checkbox disabled label="Locked" />
+            </div>
+            <Switch checked={sw} onChange={setSw} label="Live prices" size="sm" />
+            <Radio name="basis" value={r} onChange={setR} direction="row" options={[{value:'gross',label:'Gross'},{value:'net',label:'Net'},{value:'beta',label:'Beta-adj'}]} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>

@@ -1,0 +1,59 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Charts" subtitle="Line, bar, donut, legend, inline meter" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:14px 16px;background:var(--surface-card);font-family:var(--font-sans);color:var(--text-body)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.lbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:7px}
+.grid{display:grid;gap:16px 26px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { LineChart, BarChart, DonutChart, ChartLegend, BarMeter, Card } = window.BasisDesignSystem_6e7350;
+const s=(n,d,a)=>Array.from({length:n},(_,i)=>Math.sin(i/2.6)*a+i*d);
+function Demo(){
+  const [hidden,setHidden]=React.useState([]);
+  const toggle=k=>setHidden(h=>h.includes(k)?h.filter(x=>x!==k):[...h,k]);
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return (
+    <div className="grid" style={{gridTemplateColumns:'1.4fr 1fr'}}>
+      <Card dense title="Cumulative return" subtitle="Net of fees, YTD" icon="line-chart" padding="sm">
+        <ChartLegend hidden={hidden} onToggle={toggle} series={[
+          {key:'fund',label:'Fund',color:'var(--chart-1)',value:'+12.4%'},
+          {key:'bench',label:'S&P 500',color:'var(--chart-benchmark)',dashed:true,value:'+9.1%'}]} style={{marginBottom:8}} />
+        <LineChart height={128} zeroLine labels={months} formatY={v=>v.toFixed(0)+'%'} hidden={hidden}
+          series={[{key:'fund',data:s(12,1.1,2.4),color:'var(--chart-1)'},{key:'bench',data:s(12,.78,1.4),color:'var(--chart-benchmark)',dashed:true}]} />
+      </Card>
+      <Card dense title="AUM by strategy" icon="pie-chart" padding="sm">
+        <div className="row" style={{gap:14,justifyContent:'center'}}>
+          <DonutChart size={110} thickness={13} total="$4.2B" label="AUM" data={[
+            {label:'Quant',value:38,color:'var(--chart-1)'},{label:'Fundamental',value:31,color:'var(--chart-2)'},
+            {label:'Macro',value:19,color:'var(--chart-3)'},{label:'Credit',value:12,color:'var(--chart-5)'}]} />
+          <ChartLegend size="sm" direction="column" series={[
+            {key:'q',label:'Quant',color:'var(--chart-1)',value:'38%'},{key:'f',label:'Fundamental',color:'var(--chart-2)',value:'31%'},
+            {key:'m',label:'Macro',color:'var(--chart-3)',value:'19%'},{key:'c',label:'Credit',color:'var(--chart-5)',value:'12%'}]} />
+        </div>
+      </Card>
+      <Card dense title="Attribution" subtitle="MTD, bps" icon="bar-chart-3" padding="sm">
+        <BarChart orientation="horizontal" signed barSize={14} gap={5} formatValue={v=>v.toFixed(0)+' bps'} data={[
+          {label:'Energy',value:64},{label:'Tech',value:41},{label:'Financials',value:12},{label:'Staples',value:-18},{label:'Health',value:-37}]} />
+      </Card>
+      <Card dense title="Limit utilization" icon="gauge" padding="sm">
+        <div className="col" style={{gap:9}}>
+          {[['Gross exposure',82,75],['Single name',54,80],['Sector concentration',68,80],['VaR (99%)',91,90]].map(([l,v,lim])=>(
+            <div key={l}>
+              <div style={{display:'flex',justifyContent:'space-between',fontSize:'var(--text-2xs)',color:'var(--text-secondary)',marginBottom:3}}><span>{l}</span></div>
+              <BarMeter value={v} limit={lim} showValue />
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>

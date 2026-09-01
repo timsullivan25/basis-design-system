@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Navigation" subtitle="Side rail, tabs, breadcrumb" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:14px 16px;background:var(--surface-card);font-family:var(--font-sans);color:var(--text-body)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.lbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:7px}
+.grid{display:grid;gap:16px 26px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { SideNav, Tabs, Breadcrumb, Button, Badge } = window.BasisDesignSystem_6e7350;
+function Demo(){
+  const [nav,setNav]=React.useState('positions');
+  const [tab,setTab]=React.useState('positions');
+  return (
+    <div style={{display:'flex',gap:16,height:262,border:'1px solid var(--border-default)',borderRadius:'var(--radius-md)',overflow:'hidden'}}>
+      <SideNav value={nav} onChange={setNav} style={{borderRight:'1px solid var(--border-default)'}}
+        header={<span style={{fontSize:14,fontWeight:700,letterSpacing:'-0.02em',color:'var(--text-primary)'}}>Basis</span>}
+        footer={<div style={{display:'flex',alignItems:'center',gap:8,fontSize:'var(--text-2xs)',color:'var(--text-secondary)'}}><Badge tone="positive" size="sm" dot>Live</Badge>16:04 ET</div>}
+        items={[
+          {section:'Portfolio'},
+          {value:'overview',label:'Overview',icon:'layout-dashboard'},
+          {value:'positions',label:'Positions',icon:'table-2',badge:214,children:[{value:'longs',label:'Longs'},{value:'shorts',label:'Shorts'}]},
+          {value:'risk',label:'Risk',icon:'gauge'},
+          {section:'Research'},
+          {value:'screens',label:'Screens',icon:'filter',badge:8},
+          {value:'notes',label:'Notes',icon:'file-text'},
+        ]} />
+      <div style={{flex:'1 1 auto',minWidth:0,padding:'10px 14px 0 0',display:'flex',flexDirection:'column',gap:10}}>
+        <Breadcrumb items={[{value:'funds',label:'Global L/S',icon:'briefcase'},{value:'energy',label:'Energy'},{label:'XOM US'}]} />
+        <Tabs value={tab} onChange={setTab} size="sm" actions={<Button size="xs" iconLeft="download">Export</Button>}
+          tabs={[{value:'summary',label:'Summary',icon:'layout-dashboard'},{value:'positions',label:'Positions',count:214},{value:'attrib',label:'Attribution'},{value:'risk',label:'Risk'}]} />
+        <div style={{fontSize:'var(--text-xs)',color:'var(--text-tertiary)',padding:'6px 0'}}>Rail = modules. Tabs = layers within one subject. Breadcrumb = drill depth.</div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>

@@ -1,0 +1,56 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Data" subtitle="Metric cards, delta values, sparklines, dense table" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:14px 16px;background:var(--surface-card);font-family:var(--font-sans);color:var(--text-body)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.lbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:7px}
+.grid{display:grid;gap:16px 26px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { MetricCard, DeltaValue, Sparkline, DataTable, Card, Badge } = window.BasisDesignSystem_6e7350;
+const s=(n,d)=>Array.from({length:n},(_,i)=>50+Math.sin(i/2.2)*8+i*d);
+function Demo(){
+  const [sort,setSort]=React.useState({key:'pnl',dir:'desc'});
+  const [open,setOpen]=React.useState(null);
+  const rows=[
+    {id:'1',ticker:'XOM US',name:'Exxon Mobil',wgt:4.2,pnl:38,ret:1.84},
+    {id:'2',ticker:'NVDA US',name:'NVIDIA',wgt:3.8,pnl:112,ret:3.02},
+    {id:'3',ticker:'SHEL LN',name:'Shell plc',wgt:-2.1,pnl:-24,ret:-0.91},
+    {id:'4',ticker:'6758 JP',name:'Sony Group',wgt:1.6,pnl:-6,ret:-0.18},
+  ];
+  return (
+    <div className="col">
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+        <MetricCard label="Net exposure" value="42.8" unit="% NAV" delta={-1.4} deltaLabel="vs prior close" icon="scale" spark={s(24,.15)} onDrill={()=>{}} />
+        <MetricCard label="MTD return" value="+2.41" unit="%" delta={38} deltaUnit="bps" deltaLabel="1D" tone="positive" spark={s(24,.3)} footnote="T+1" />
+        <MetricCard label="Max drawdown" value="−3.90" unit="%" delta={-0.4} invertDelta tone="caution" icon="trending-down" deltaLabel="60d" />
+      </div>
+      <div className="row" style={{gap:22}}>
+        <div><div className="lbl">Delta</div><div className="row" style={{gap:14}}>
+          <DeltaValue value={1.42} /><DeltaValue value={-38} unit="bps" glyph="triangle" /><DeltaValue value={0} /><DeltaValue value={2.9} chip size="lg" />
+        </div></div>
+        <div><div className="lbl">Sparkline</div><div className="row"><Sparkline data={s(20,.3)} baseline /><Sparkline data={s(20,-.4)} /><Sparkline data={s(20,.1)} color="var(--chart-2)" area={false} width={56} height={16} /></div></div>
+      </div>
+      <Card padding="none" dense title="Positions" subtitle="Top contributors" icon="table-2" actions={<Badge tone="neutral" size="sm">4 of 214</Badge>}>
+        <DataTable dense sort={sort} onSortChange={setSort} rows={rows} expandedKey={open}
+          onRowClick={r=>setOpen(open===r.id?null:r.id)}
+          renderDetail={r=>(<div style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>Drill-in detail for {r.name} — sleeve, factor loadings, trade history.</div>)}
+          columns={[
+            {key:'ticker',label:'Ticker',emphasis:true,width:96},
+            {key:'name',label:'Name',muted:true,maxWidth:180},
+            {key:'wgt',label:'Weight',numeric:true,description:'% of NAV, T+1',width:90,render:v=>v.toFixed(1)+'%'},
+            {key:'ret',label:'Return',numeric:true,width:90,render:v=><DeltaValue value={v} glyph="none" size="xs" />},
+            {key:'pnl',label:'P&L contrib',numeric:true,width:110,render:v=><DeltaValue value={v} unit="bps" glyph="none" size="xs" />},
+          ]} />
+      </Card>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>
