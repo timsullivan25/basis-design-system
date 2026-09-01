@@ -8,7 +8,7 @@ export function Tabs({ tabs = [], value, onChange, size = 'md', actions, style, 
   const h = size === 'sm' ? 'var(--subbar-h)' : 'var(--topbar-h)';
   return (
     <div style={{ display: 'flex', alignItems: 'stretch', gap: 'var(--space-8)', height: h, borderBottom: '1px solid var(--border-default)', ...style }} {...rest}>
-      <div role="tablist" style={{ display: 'flex', alignItems: 'stretch', gap: 'var(--space-8)', minWidth: 0, overflow: 'auto' }}>
+      <div role="tablist" style={{ display: 'flex', alignItems: 'stretch', gap: 'var(--space-8)', minWidth: 0, overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none' }}>
         {tabs.map((t) => {
           const on = value === t.value;
           return (
