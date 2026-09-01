@@ -1,0 +1,565 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Basis — Portfolio Terminal</title>
+<template id="__bundler_thumbnail" data-bg-color="#0B4FD9">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="800" fill="#0B4FD9"></rect><g stroke="#FFFFFF" stroke-width="26" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M300 540 L450 400 L600 470 L750 300 L900 360"></path></g><g fill="#FFFFFF"><circle cx="300" cy="540" r="22"></circle><circle cx="450" cy="400" r="22"></circle><circle cx="600" cy="470" r="22"></circle><circle cx="750" cy="300" r="22"></circle><circle cx="900" cy="360" r="22"></circle></g><g fill="#8AD4EC"><rect x="300" y="600" width="90" height="70" rx="8"></rect><rect x="420" y="620" width="90" height="50" rx="8"></rect><rect x="540" y="580" width="90" height="90" rx="8"></rect><rect x="660" y="610" width="90" height="60" rx="8"></rect><rect x="780" y="560" width="90" height="110" rx="8"></rect></g></svg>
+</template>
+<link rel="stylesheet" href="../../styles.css">
+<style>html,body{height:100%}body{margin:0;overflow:hidden;background:var(--surface-app)}
+#root{height:100vh}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel">
+function __basisBoot(){
+
+/* ==== data.jsx ==== */
+(function(){
+const wave=(n,drift,amp,seed=1)=>Array.from({length:n},(_,i)=>Math.sin((i+seed)/2.7)*amp+Math.cos((i+seed)/1.6)*amp*0.4+i*drift);
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const KPIS=[
+  {key:'nav',label:'NAV',value:'4,218.4',unit:'$mm',delta:0.42,deltaLabel:'1D',icon:'wallet',spark:wave(30,.9,3,2)},
+  {key:'mtd',label:'MTD return',value:'+2.41',unit:'%',delta:38,deltaUnit:'bps',deltaLabel:'1D',tone:'positive',icon:'trending-up',spark:wave(30,1.1,2.2,5)},
+  {key:'net',label:'Net exposure',value:'42.8',unit:'% NAV',delta:-1.4,deltaLabel:'vs prior close',icon:'scale',spark:wave(30,.2,4,9)},
+  {key:'gross',label:'Gross exposure',value:'182.0',unit:'% NAV',delta:3.1,deltaLabel:'vs prior close',tone:'caution',icon:'layers',footnote:'limit 175'},
+  {key:'var',label:'VaR (99%, 1d)',value:'−1.86',unit:'% NAV',delta:-0.12,invertDelta:true,icon:'gauge',spark:wave(30,-.2,1.6,3)},
+];
+
+const STRATEGIES=[
+  {key:'quant',label:'Quant',icon:'cpu',nav:38.2,mtd:0.84,color:'var(--chart-1)',sleeves:[
+    {name:'Stat arb',nav:14.1,mtd:0.41,util:72,names:412},
+    {name:'Cross-sectional momentum',nav:12.6,mtd:0.28,util:58,names:288},
+    {name:'Vol carry',nav:11.5,mtd:0.15,util:44,names:36}]},
+  {key:'fundamental',label:'Fundamental',icon:'search',nav:31.4,mtd:-0.22,color:'var(--chart-2)',sleeves:[
+    {name:'Energy & materials',nav:11.2,mtd:0.64,util:66,names:24},
+    {name:'Technology',nav:10.9,mtd:-0.51,util:71,names:31},
+    {name:'Consumer',nav:9.3,mtd:-0.35,util:49,names:29}]},
+  {key:'macro',label:'Macro',icon:'globe',nav:19.0,mtd:0.31,color:'var(--chart-3)',sleeves:[
+    {name:'Rates',nav:8.8,mtd:0.22,util:61,names:14},
+    {name:'FX',nav:6.1,mtd:0.09,util:38,names:11},
+    {name:'Commodities',nav:4.1,mtd:0.00,util:27,names:9}]},
+  {key:'credit',label:'Credit',icon:'landmark',nav:11.4,mtd:0.12,color:'var(--chart-5)',sleeves:[
+    {name:'IG relative value',nav:7.0,mtd:0.08,util:52,names:41},
+    {name:'Event',nav:4.4,mtd:0.04,util:33,names:12}]},
+];
+
+const POSITIONS=[
+  {id:'p1',ticker:'XOM US',name:'Exxon Mobil',strategy:'Fundamental',sleeve:'Energy & materials',side:'Long',wgt:4.2,notional:177200000,ret:1.84,pnl:64,beta:0.92,liq:1.2,spark:wave(24,.9,2,1)},
+  {id:'p2',ticker:'NVDA US',name:'NVIDIA',strategy:'Fundamental',sleeve:'Technology',side:'Long',wgt:3.8,notional:160300000,ret:3.02,pnl:112,beta:1.64,liq:0.4,spark:wave(24,1.4,3,4)},
+  {id:'p3',ticker:'SHEL LN',name:'Shell plc',strategy:'Fundamental',sleeve:'Energy & materials',side:'Short',wgt:-2.1,notional:-88600000,ret:-0.91,pnl:-24,beta:0.81,liq:1.6,spark:wave(24,-.6,2,7)},
+  {id:'p4',ticker:'6758 JP',name:'Sony Group',strategy:'Fundamental',sleeve:'Technology',side:'Long',wgt:1.6,notional:67500000,ret:-0.18,pnl:-6,beta:1.12,liq:2.1,spark:wave(24,-.2,1.4,2)},
+  {id:'p5',ticker:'QSA-1042',name:'Stat arb basket 1042',strategy:'Quant',sleeve:'Stat arb',side:'Long',wgt:5.4,notional:227800000,ret:0.42,pnl:41,beta:0.06,liq:0.2,spark:wave(24,.5,1,9)},
+  {id:'p6',ticker:'QSA-1043',name:'Stat arb basket 1043',strategy:'Quant',sleeve:'Stat arb',side:'Short',wgt:-5.1,notional:-215100000,ret:0.31,pnl:29,beta:-0.04,liq:0.2,spark:wave(24,.4,1,3)},
+  {id:'p7',ticker:'QMO-208',name:'Momentum basket 208',strategy:'Quant',sleeve:'Cross-sectional momentum',side:'Long',wgt:6.2,notional:261500000,ret:0.28,pnl:24,beta:0.34,liq:0.3,spark:wave(24,.3,1.2,6)},
+  {id:'p8',ticker:'US 10Y',name:'UST 10-year future',strategy:'Macro',sleeve:'Rates',side:'Short',wgt:-8.8,notional:-371200000,ret:0.22,pnl:19,beta:-0.18,liq:0.1,spark:wave(24,.2,1.8,8)},
+  {id:'p9',ticker:'EURUSD',name:'EUR/USD forward',strategy:'Macro',sleeve:'FX',side:'Long',wgt:6.1,notional:257300000,ret:0.09,pnl:8,beta:0.02,liq:0.1,spark:wave(24,.1,1.1,5)},
+  {id:'p10',ticker:'CDX IG 41',name:'CDX IG series 41',strategy:'Credit',sleeve:'IG relative value',side:'Short',wgt:-7.0,notional:-295200000,ret:0.08,pnl:7,beta:0.09,liq:0.3,spark:wave(24,.1,.9,4)},
+  {id:'p11',ticker:'PG US',name:'Procter & Gamble',strategy:'Fundamental',sleeve:'Consumer',side:'Short',wgt:-1.9,notional:-80100000,ret:-1.24,pnl:-37,beta:0.58,liq:1.9,spark:wave(24,-.7,1.6,1)},
+  {id:'p12',ticker:'ASML NA',name:'ASML Holding',strategy:'Fundamental',sleeve:'Technology',side:'Long',wgt:2.4,notional:101200000,ret:-0.44,pnl:-14,beta:1.38,liq:0.9,spark:wave(24,-.3,2.1,7)},
+];
+
+const LIMITS=[
+  {name:'Gross exposure',value:182,limit:175,max:220,unit:'% NAV',owner:'Mandate'},
+  {name:'Net exposure',value:42.8,limit:60,max:80,unit:'% NAV',owner:'Mandate'},
+  {name:'Single name',value:5.4,limit:7.5,max:10,unit:'% NAV',owner:'Risk committee'},
+  {name:'Sector concentration',value:24.1,limit:30,max:40,unit:'% NAV',owner:'Risk committee'},
+  {name:'VaR (99%, 1d)',value:1.86,limit:2.5,max:3.5,unit:'% NAV',owner:'Mandate'},
+  {name:'Beta-adjusted net',value:31.2,limit:45,max:60,unit:'% NAV',owner:'PM'},
+  {name:'Illiquid (>3d ADV)',value:6.4,limit:8,max:12,unit:'% NAV',owner:'Risk committee'},
+];
+
+const ATTRIB_SECTOR=[
+  {label:'Energy',value:64},{label:'Technology',value:41},{label:'Financials',value:12},
+  {label:'Industrials',value:6},{label:'Health care',value:-18},{label:'Staples',value:-37},
+];
+const ATTRIB_FACTOR=[
+  {label:'Momentum',value:52},{label:'Quality',value:28},{label:'Value',value:-9},
+  {label:'Size',value:-14},{label:'Low vol',value:-22},{label:'Residual',value:106},
+];
+
+Object.assign(window,{wave,MONTHS,KPIS,STRATEGIES,POSITIONS,LIMITS,ATTRIB_SECTOR,ATTRIB_FACTOR});
+})();
+
+/* ==== AppShell.jsx ==== */
+(function(){
+const { SideNav, Tabs, Button, IconButton, Badge, Icon, Input, Breadcrumb, Popover, Switch, Tooltip } = window.BasisDesignSystem_6e7350;
+
+function Wordmark(){
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:8,minWidth:0}}>
+      <span style={{fontSize:15,fontWeight:700,letterSpacing:'-0.03em',color:'var(--text-primary)'}}>Basis</span>
+      <span style={{fontSize:'var(--text-3xs)',fontWeight:600,letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--text-tertiary)'}}>Terminal</span>
+    </div>
+  );
+}
+
+function TopBar({ fund, onFundChange, dark, onDarkChange, tab, onTabChange, tabs, crumbs, onCrumb }){
+  return (
+    <div style={{flex:'0 0 auto',background:'var(--surface-chrome)',borderBottom:'1px solid var(--border-default)'}}>
+      <div style={{display:'flex',alignItems:'center',gap:'var(--space-8)',height:'var(--topbar-h)',padding:'0 var(--space-8)'}}>
+        <Popover title="Funds" width={240} trigger={
+          <Button size="sm" iconLeft="briefcase" iconRight="chevron-down">{fund}</Button>}>
+          <div style={{display:'flex',flexDirection:'column',gap:2,margin:'-4px'}}>
+            {['Global L/S Master','Quant Multi-Strat','Macro Opportunities','Credit RV'].map(n=>(
+              <button key={n} onClick={()=>onFundChange(n)} style={{display:'flex',alignItems:'center',gap:8,height:26,padding:'0 8px',background:n===fund?'var(--surface-selected)':'transparent',border:'none',borderRadius:'var(--radius-sm)',cursor:'pointer',fontFamily:'var(--font-sans)',fontSize:'var(--text-xs)',color:n===fund?'var(--text-brand)':'var(--text-body)',textAlign:'left'}}>
+                {n===fund?<Icon name="check" size={12} />:<span style={{width:12}} />}{n}
+              </button>
+            ))}
+          </div>
+        </Popover>
+        <div style={{width:1,height:20,background:'var(--border-default)'}} />
+        <Breadcrumb items={crumbs} onNavigate={onCrumb} />
+        <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:'var(--space-6)'}}>
+          <Input size="sm" iconLeft="search" placeholder="Ticker, ISIN, sleeve" fullWidth={false} style={{width:210}} />
+          <Tooltip content="Streaming from the prime broker feed"><Badge tone="positive" dot>Live</Badge></Tooltip>
+          <span style={{fontFamily:'var(--font-mono)',fontSize:'var(--text-2xs)',fontVariantNumeric:'tabular-nums',color:'var(--text-secondary)'}}>16:04:12 ET</span>
+          <div style={{width:1,height:20,background:'var(--border-default)'}} />
+          <Popover placement="bottom-end" title="Display" width={210} trigger={<IconButton icon="settings-2" label="Display settings" size="sm" />}>
+            <div style={{display:'flex',flexDirection:'column',gap:10}}>
+              <Switch size="sm" checked={dark} onChange={onDarkChange} label="Dark mode" />
+              <Switch size="sm" checked label="Live prices" />
+              <Switch size="sm" checked={false} label="Show short book gross" />
+            </div>
+          </Popover>
+          <IconButton icon="bell" label="Alerts" size="sm" />
+          <span style={{display:'inline-flex',alignItems:'center',justifyContent:'center',width:24,height:24,background:'var(--ink-800)',borderRadius:'var(--radius-pill)',fontSize:'var(--text-3xs)',fontWeight:600,color:'var(--white)'}}>AK</span>
+        </div>
+      </div>
+      <div style={{padding:'0 var(--space-8)'}}>
+        <Tabs size="sm" value={tab} onChange={onTabChange} tabs={tabs}
+          actions={<><Button size="xs" variant="ghost" iconLeft="download">Export</Button><Button size="xs" variant="ghost" iconLeft="share-2">Share</Button></>} />
+      </div>
+    </div>
+  );
+}
+
+function PageHeader({ title, meta, actions }){
+  return (
+    <div style={{display:'flex',alignItems:'flex-end',gap:'var(--space-8)',marginBottom:'var(--space-8)'}}>
+      <div style={{display:'flex',flexDirection:'column',gap:3,minWidth:0}}>
+        <h1 style={{fontSize:'var(--text-2xl)',fontWeight:600,letterSpacing:'var(--tracking-display)',color:'var(--text-primary)'}}>{title}</h1>
+        {meta?<span style={{fontSize:'var(--text-2xs)',color:'var(--text-secondary)'}}>{meta}</span>:null}
+      </div>
+      <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:'var(--space-5)'}}>{actions}</div>
+    </div>
+  );
+}
+
+Object.assign(window,{Wordmark,TopBar,PageHeader});
+})();
+
+/* ==== OverviewScreen.jsx ==== */
+(function(){
+const { Card, MetricCard, DeltaValue, Sparkline, LineChart, BarChart, DonutChart, ChartLegend, Accordion, Alert, Button, IconButton, Badge, SegmentedControl, BarMeter, Popover, Icon, DataTable } = window.BasisDesignSystem_6e7350;
+
+function OverviewScreen({ onDrill }){
+  const [period,setPeriod]=React.useState('ytd');
+  const [hidden,setHidden]=React.useState([]);
+  const [open,setOpen]=React.useState(['quant']);
+  const toggleSeries=k=>setHidden(h=>h.includes(k)?h.filter(x=>x!==k):[...h,k]);
+  const toggle=k=>setOpen(o=>o.includes(k)?o.filter(x=>x!==k):[...o,k]);
+  return (
+    <>
+      <PageHeader title="Overview" meta="Global L/S Master · NAV as of 16:00 ET · P&L T+0 estimate"
+        actions={<>
+          <SegmentedControl size="sm" value={period} onChange={setPeriod} options={[{value:'1d',label:'1D'},{value:'1w',label:'1W'},{value:'mtd',label:'MTD'},{value:'qtd',label:'QTD'},{value:'ytd',label:'YTD'}]} />
+          <Button size="sm" iconLeft="refresh-cw">Refresh</Button>
+        </>} />
+      <Alert tone="caution" compact title="Gross exposure is 182% against a 175% mandate limit"
+        actions={<Button variant="link" size="xs" onClick={()=>onDrill('risk')}>Open risk</Button>} style={{marginBottom:'var(--space-8)'}} />
+      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:'var(--space-6)',marginBottom:'var(--space-8)'}}>
+        {KPIS.map(k=>(
+          <MetricCard key={k.key} label={k.label} value={k.value} unit={k.unit} delta={k.delta} deltaUnit={k.deltaUnit}
+            deltaLabel={k.deltaLabel} icon={k.icon} spark={k.spark} tone={k.tone} invertDelta={k.invertDelta}
+            footnote={k.footnote} onDrill={()=>onDrill(k.key==='var'?'risk':'positions')} />
+        ))}
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1.55fr 1fr',gap:'var(--space-6)',marginBottom:'var(--space-6)'}}>
+        <Card dense title="Cumulative return" subtitle="Net of fees, YTD" icon="line-chart" padding="sm"
+          actions={<Popover placement="bottom-end" title="How this is calculated" trigger={<IconButton icon="info" label="Methodology" size="sm" />}>
+            Time-weighted, net of management and performance fees, geometrically linked daily. Benchmark is unhedged total return.
+          </Popover>}
+          footer={<span>Source: middle office · T+1 reconciled through 11 Aug</span>}>
+          <ChartLegend hidden={hidden} onToggle={toggleSeries} style={{marginBottom:'var(--space-6)'}} series={[
+            {key:'fund',label:'Fund',color:'var(--chart-1)',value:'+12.4%'},
+            {key:'bench',label:'S&P 500',color:'var(--chart-benchmark)',dashed:true,value:'+9.1%'},
+            {key:'peer',label:'HFRI Equity Hedge',color:'var(--chart-2)',value:'+6.8%'}]} />
+          <LineChart height={196} zeroLine labels={MONTHS} hidden={hidden} formatY={v=>v.toFixed(0)+'%'} series={[
+            {key:'fund',data:wave(12,1.15,2.4,1),color:'var(--chart-1)'},
+            {key:'bench',data:wave(12,.82,1.5,3),color:'var(--chart-benchmark)',dashed:true},
+            {key:'peer',data:wave(12,.62,1.1,6),color:'var(--chart-2)'}]} />
+        </Card>
+        <Card dense title="Capital by strategy" subtitle="% NAV" icon="pie-chart" padding="sm"
+          footer={<span>4 strategies · 11 sleeves</span>}>
+          <div style={{display:'flex',alignItems:'center',gap:'var(--space-9)',padding:'var(--space-4) 0'}}>
+            <DonutChart size={132} thickness={15} total="$4.2B" label="AUM"
+              data={STRATEGIES.map(s=>({label:s.label,value:s.nav,color:s.color}))} />
+            <ChartLegend direction="column" series={STRATEGIES.map(s=>({key:s.key,label:s.label,color:s.color,value:s.nav.toFixed(1)+'%'}))} />
+          </div>
+        </Card>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'var(--space-6)',marginBottom:'var(--space-6)'}}>
+        <Card dense title="MTD attribution by sector" subtitle="bps of NAV" icon="bar-chart-3" padding="sm"
+          actions={<Button size="xs" variant="ghost" iconRight="chevron-right" onClick={()=>onDrill('attribution')}>All factors</Button>}>
+          <BarChart orientation="horizontal" signed barSize={15} gap={6} formatValue={v=>(v>0?'+':'−')+Math.abs(v)+' bps'} data={ATTRIB_SECTOR} />
+        </Card>
+        <Card dense title="Limit utilisation" subtitle="Against mandate and committee limits" icon="gauge" padding="sm"
+          actions={<Badge tone="negative" size="sm" icon="alert-triangle">1 breach</Badge>}>
+          <div style={{display:'flex',flexDirection:'column',gap:'var(--space-6)'}}>
+            {LIMITS.slice(0,5).map(l=>(
+              <div key={l.name}>
+                <div style={{display:'flex',justifyContent:'space-between',fontSize:'var(--text-2xs)',color:'var(--text-secondary)',marginBottom:3}}>
+                  <span>{l.name}</span><span style={{fontFamily:'var(--font-mono)',color:'var(--text-tertiary)'}}>limit {l.limit}{l.unit==='% NAV'?'%':''}</span>
+                </div>
+                <BarMeter value={l.value} limit={l.limit} max={l.max} showValue formatValue={v=>v.toFixed(1)+'%'} />
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+      <Card dense title="Strategy detail" subtitle="Expand a strategy to see its sleeves" icon="layers" padding="none"
+        actions={<Button size="xs" variant="ghost" iconRight="chevron-right" onClick={()=>onDrill('positions')}>All positions</Button>}>
+        <div style={{padding:'var(--space-6)'}}>
+          <Accordion openKeys={open} onToggle={toggle} items={STRATEGIES.map(s=>({
+            key:s.key,label:s.label,icon:s.icon,
+            summary:(<>
+              <span style={{fontFamily:'var(--font-mono)',fontVariantNumeric:'tabular-nums',color:'var(--text-body)'}}>{s.nav.toFixed(1)}% NAV</span>
+              <span style={{width:64,display:'inline-flex',justifyContent:'flex-end'}}><DeltaValue value={s.mtd} size="xs" /></span>
+              <Sparkline data={wave(20,s.mtd*2,1.4,3)} width={64} height={16} />
+            </>),
+            content:(
+              <DataTable dense rows={s.sleeves.map((x,i)=>({id:s.key+i,...x}))} columns={[
+                {key:'name',label:'Sleeve',emphasis:true,maxWidth:260},
+                {key:'names',label:'Positions',numeric:true,width:90},
+                {key:'nav',label:'% NAV',numeric:true,width:90,render:v=>v.toFixed(1)+'%'},
+                {key:'mtd',label:'MTD',numeric:true,width:100,render:v=><DeltaValue value={v} glyph="none" size="xs" />},
+                {key:'util',label:'Risk budget used',numeric:true,width:200,render:v=><BarMeter value={v} limit={80} showValue formatValue={x=>x+'%'} />},
+              ]} />)
+          }))} />
+        </div>
+      </Card>
+    </>
+  );
+}
+Object.assign(window,{OverviewScreen});
+})();
+
+/* ==== PositionsScreen.jsx ==== */
+(function(){
+const { Card, DataTable, DeltaValue, Sparkline, Button, IconButton, Badge, Tag, Input, Select, SegmentedControl, Checkbox, Popover, Icon, Tooltip, LineChart, ChartLegend, BarMeter, Alert, Toast } = window.BasisDesignSystem_6e7350;
+
+const fmtN=v=>(v<0?'−':'')+Math.abs(v/1e6).toFixed(1)+'mm';
+
+function PositionDetail({ row }){
+  return (
+    <div style={{display:'grid',gridTemplateColumns:'1.3fr 1fr',gap:'var(--space-9)'}}>
+      <div>
+        <div style={{display:'flex',alignItems:'center',gap:'var(--space-6)',marginBottom:'var(--space-6)'}}>
+          <span style={{fontSize:'var(--text-2xs)',fontWeight:600,letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--text-secondary)'}}>Price · 30 sessions</span>
+          <Badge tone="neutral" size="sm">{row.strategy}</Badge>
+          <Badge tone={row.side==='Long'?'info':'caution'} size="sm">{row.side}</Badge>
+        </div>
+        <LineChart height={120} labels={['','','','','','']} formatY={v=>v.toFixed(0)}
+          series={[{key:'px',data:wave(30,row.ret,2.2,4),color:row.ret>=0?'var(--chart-3)':'var(--chart-4)'}]} />
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'var(--space-6) var(--space-8)',alignContent:'start'}}>
+        {[['Sleeve',row.sleeve],['Beta (60d)',row.beta.toFixed(2)],['ADV to exit',row.liq.toFixed(1)+' days'],
+          ['Notional',fmtN(row.notional)],['Weight',row.wgt.toFixed(1)+'% NAV'],['MTD contribution',(row.pnl>0?'+':'−')+Math.abs(row.pnl)+' bps']].map(([l,v])=>(
+          <div key={l} style={{display:'flex',flexDirection:'column',gap:2}}>
+            <span style={{fontSize:'var(--text-3xs)',fontWeight:600,letterSpacing:'var(--tracking-caps)',textTransform:'uppercase',color:'var(--text-tertiary)'}}>{l}</span>
+            <span style={{fontFamily:'var(--font-mono)',fontSize:'var(--text-sm)',fontVariantNumeric:'tabular-nums',color:'var(--text-primary)'}}>{v}</span>
+          </div>
+        ))}
+        <div style={{gridColumn:'1 / -1',display:'flex',gap:'var(--space-5)',marginTop:'var(--space-4)'}}>
+          <Button size="sm" iconLeft="file-text">Open note</Button>
+          <Button size="sm" variant="ghost" iconLeft="git-compare">Compare sleeve</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PositionsScreen(){
+  const [sort,setSort]=React.useState({key:'pnl',dir:'desc'});
+  const [expanded,setExpanded]=React.useState(null);
+  const [selected,setSelected]=React.useState([]);
+  const [side,setSide]=React.useState('all');
+  const [strategy,setStrategy]=React.useState('all');
+  const [q,setQ]=React.useState('');
+  const [dense,setDense]=React.useState(true);
+  const [toast,setToast]=React.useState(false);
+
+  let rows=POSITIONS.filter(p=>(side==='all'||p.side.toLowerCase()===side)&&(strategy==='all'||p.strategy===strategy)
+    &&(q===''||(p.ticker+p.name).toLowerCase().includes(q.toLowerCase())));
+  rows=[...rows].sort((a,b)=>{const d=sort.dir==='asc'?1:-1;const av=a[sort.key],bv=b[sort.key];
+    return typeof av==='number'?(av-bv)*d:String(av).localeCompare(String(bv))*d;});
+
+  const filters=[side!=='all'&&['side','Side: '+side],strategy!=='all'&&['strategy','Strategy: '+strategy]].filter(Boolean);
+
+  return (
+    <>
+      <PageHeader title="Positions" meta={rows.length+' of '+POSITIONS.length+' positions · notional in USD · T+1 book'}
+        actions={<>
+          <Button size="sm" iconLeft="columns-3">Columns</Button>
+          <Button size="sm" iconLeft="save" onClick={()=>setToast(true)}>Save view</Button>
+          <Button size="sm" variant="primary" iconLeft="download">Export</Button>
+        </>} />
+      <Card padding="none" style={{marginBottom:'var(--space-6)'}}>
+        <div style={{display:'flex',alignItems:'center',gap:'var(--space-6)',padding:'var(--space-5) var(--space-6)',borderBottom:'1px solid var(--border-subtle)'}}>
+          <Input size="sm" iconLeft="search" placeholder="Ticker or name" value={q} onChange={e=>setQ(e.target.value)} onClear={()=>setQ('')} fullWidth={false} style={{width:220}} />
+          <SegmentedControl size="sm" value={side} onChange={setSide} options={[{value:'all',label:'All'},{value:'long',label:'Long'},{value:'short',label:'Short'}]} />
+          <Select size="sm" value={strategy} onChange={e=>setStrategy(e.target.value)} fullWidth={false} style={{width:170}} iconLeft="layers"
+            options={[{value:'all',label:'All strategies'},...STRATEGIES.map(s=>({value:s.label,label:s.label}))]} />
+          <Popover title="Advanced filters" width={250} trigger={<Button size="sm" iconLeft="sliders-horizontal">More</Button>}>
+            <div style={{display:'flex',flexDirection:'column',gap:9}}>
+              <Checkbox checked label="Exclude baskets" /><Checkbox label="Only limit-relevant names" />
+              <Checkbox label="Illiquid (>1d ADV)" /><Checkbox label="Added in last 5 sessions" />
+            </div>
+          </Popover>
+          <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:'var(--space-6)'}}>
+            {selected.length?<Badge tone="info">{selected.length} selected</Badge>:null}
+            <SegmentedControl size="sm" value={dense?'dense':'comfortable'} onChange={v=>setDense(v==='dense')}
+              options={[{value:'comfortable',icon:'rows-3'},{value:'dense',icon:'rows-4'}]} />
+          </div>
+        </div>
+        {filters.length?(
+          <div style={{display:'flex',alignItems:'center',gap:'var(--space-4)',padding:'var(--space-5) var(--space-6)',borderBottom:'1px solid var(--border-subtle)',background:'var(--surface-table-head)'}}>
+            {filters.map(([k,l])=><Tag key={k} icon="filter" onRemove={()=>k==='side'?setSide('all'):setStrategy('all')}>{l}</Tag>)}
+            <Button variant="link" size="xs" onClick={()=>{setSide('all');setStrategy('all');}}>Clear all</Button>
+          </div>
+        ):null}
+        <DataTable dense={dense} sort={sort} onSortChange={setSort} rows={rows} selectable selected={selected} onSelectedChange={setSelected}
+          expandedKey={expanded} onRowClick={r=>setExpanded(expanded===r.id?null:r.id)} renderDetail={r=><PositionDetail row={r} />}
+          maxHeight={430}
+          columns={[
+            {key:'ticker',label:'Ticker',emphasis:true,width:110},
+            {key:'name',label:'Name',muted:true,maxWidth:190},
+            {key:'strategy',label:'Strategy',width:120,render:v=><Badge tone="neutral" size="sm">{v}</Badge>},
+            {key:'side',label:'Side',width:76,render:v=><span style={{color:v==='Long'?'var(--text-body)':'var(--text-caution)'}}>{v}</span>},
+            {key:'notional',label:'Notional',numeric:true,width:110,render:fmtN},
+            {key:'wgt',label:'% NAV',numeric:true,width:84,render:v=>v.toFixed(1)+'%'},
+            {key:'beta',label:'Beta',numeric:true,width:74,description:'60-day rolling regression vs primary benchmark',render:v=>v.toFixed(2)},
+            {key:'ret',label:'Return',numeric:true,width:92,render:v=><DeltaValue value={v} glyph="none" size="xs" />},
+            {key:'pnl',label:'MTD contrib',numeric:true,width:108,description:'bps of NAV, arithmetic, gross of financing',render:v=><DeltaValue value={v} unit="bps" glyph="none" size="xs" />},
+            {key:'spark',label:'30d',sortable:false,width:88,render:v=><Sparkline data={v} width={72} height={18} />},
+            {key:'liq',label:'',sortable:false,width:40,render:(v,r)=>(
+              <Tooltip content={'Exit in '+v.toFixed(1)+' days at 20% ADV'}>
+                <Icon name={v>1.5?'alert-triangle':'droplets'} size={12} color={v>1.5?'var(--text-caution)':'var(--text-tertiary)'} />
+              </Tooltip>)},
+          ]} />
+        <div style={{display:'flex',alignItems:'center',gap:'var(--space-6)',height:'var(--subbar-h)',padding:'0 var(--space-6)',borderTop:'1px solid var(--border-subtle)',background:'var(--surface-table-head)',fontSize:'var(--text-2xs)',color:'var(--text-secondary)'}}>
+          <span>Click any row to expand its detail.</span>
+          <span style={{marginLeft:'auto',fontFamily:'var(--font-mono)'}}>Gross 182.0% · Net 42.8% · 214 positions in book</span>
+        </div>
+      </Card>
+      {toast?<div style={{position:'fixed',right:24,bottom:24,zIndex:200}}>
+        <Toast tone="positive" title="View saved" onDismiss={()=>setToast(false)} action={<Button variant="link" size="xs">Open</Button>}>Filters, sort and column widths kept.</Toast>
+      </div>:null}
+    </>
+  );
+}
+Object.assign(window,{PositionsScreen,PositionDetail});
+})();
+
+/* ==== RiskScreen.jsx ==== */
+(function(){
+const { Card, DataTable, BarMeter, Badge, Button, IconButton, Alert, MetricCard, DeltaValue, LineChart, ChartLegend, BarChart, SegmentedControl, Popover, Dialog, Field, Input, Select, Icon, Tooltip } = window.BasisDesignSystem_6e7350;
+
+function RiskScreen(){
+  const [horizon,setHorizon]=React.useState('1d');
+  const [dialog,setDialog]=React.useState(false);
+  const breaches=LIMITS.filter(l=>l.value>l.limit);
+  return (
+    <>
+      <PageHeader title="Risk & limits" meta="Firm risk engine · 16:00 ET snapshot · 99% confidence unless stated"
+        actions={<>
+          <SegmentedControl size="sm" value={horizon} onChange={setHorizon} options={[{value:'1d',label:'1D'},{value:'10d',label:'10D'},{value:'stress',label:'Stress'}]} />
+          <Button size="sm" iconLeft="bell-plus" onClick={()=>setDialog(true)}>New alert</Button>
+        </>} />
+      {breaches.map(b=>(
+        <Alert key={b.name} tone="negative" title={b.name+' limit breached'} style={{marginBottom:'var(--space-6)'}}
+          actions={<><Button size="sm" variant="ghost" iconLeft="history">Breach log</Button><Button size="sm" iconLeft="eye">Review</Button></>}>
+          {b.value.toFixed(1)}% against a {b.limit}% {b.owner.toLowerCase()} limit. Opened 14:32 ET, 1h 32m outstanding. Notify risk committee before 17:00 ET.
+        </Alert>
+      ))}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'var(--space-6)',marginBottom:'var(--space-8)'}}>
+        <MetricCard label="VaR (99%, 1d)" value="−1.86" unit="% NAV" delta={-0.12} invertDelta deltaLabel="1D" icon="gauge" spark={wave(30,-.2,1.4,3)} />
+        <MetricCard label="Expected shortfall" value="−2.74" unit="% NAV" delta={-0.08} invertDelta deltaLabel="1D" icon="trending-down" />
+        <MetricCard label="Beta-adjusted net" value="31.2" unit="% NAV" delta={0.9} deltaLabel="1D" icon="scale" />
+        <MetricCard label="Stress: 2020 Feb–Mar" value="−9.4" unit="% NAV" tone="caution" icon="zap" footnote="repriced daily" />
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'var(--space-6)',marginBottom:'var(--space-6)'}}>
+        <Card dense title="Rolling VaR vs limit" subtitle="% NAV, 99% 1-day" icon="activity" padding="sm"
+          footer={<span>Historical simulation · 2-year lookback · Source: firm risk engine</span>}>
+          <ChartLegend style={{marginBottom:'var(--space-6)'}} series={[
+            {key:'var',label:'VaR',color:'var(--chart-1)',value:'1.86%'},
+            {key:'limit',label:'Limit',color:'var(--chart-4)',dashed:true,value:'2.50%'}]} />
+          <LineChart height={168} labels={MONTHS} formatY={v=>v.toFixed(1)} series={[
+            {key:'var',data:wave(12,.06,.35,2).map(v=>1.8+v),color:'var(--chart-1)'},
+            {key:'limit',data:Array(12).fill(2.5),color:'var(--chart-4)',dashed:true}]} />
+        </Card>
+        <Card dense title="Factor exposure" subtitle="Standardised beta to firm factor model" icon="git-fork" padding="sm"
+          actions={<Popover placement="bottom-end" title="Factor model" trigger={<IconButton icon="info" label="Model" size="sm" />}>
+            Firm 14-factor model, weekly re-estimation, exposures standardised to a 1-sigma move in each factor.
+          </Popover>}>
+          <BarChart orientation="horizontal" signed barSize={14} gap={6} formatValue={v=>(v/100).toFixed(2)} data={ATTRIB_FACTOR.slice(0,5).concat([{label:'Crowding',value:-31}])} />
+        </Card>
+      </div>
+      <Card padding="none" dense title="Limit register" subtitle="All mandate, committee and PM limits" icon="list-checks"
+        actions={<Badge tone={breaches.length?'negative':'positive'} size="sm" icon={breaches.length?'alert-triangle':'check'}>{breaches.length} breach{breaches.length===1?'':'es'}</Badge>}
+        footer={<span>Limits reviewed monthly by the risk committee · Last change 28 Jul</span>}>
+        <DataTable dense rows={LIMITS.map((l,i)=>({id:'l'+i,...l}))} columns={[
+          {key:'name',label:'Limit',emphasis:true,maxWidth:230},
+          {key:'owner',label:'Owner',muted:true,width:150},
+          {key:'value',label:'Current',numeric:true,width:96,render:(v,r)=>v.toFixed(1)+(r.unit==='% NAV'?'%':'')},
+          {key:'limit',label:'Limit',numeric:true,width:88,render:v=>v.toFixed(1)+'%'},
+          {key:'util',label:'Utilisation',sortable:false,width:250,render:(v,r)=><BarMeter value={r.value} limit={r.limit} max={r.max} showValue formatValue={x=>((x/r.limit)*100).toFixed(0)+'%'} />},
+          {key:'status',label:'Status',sortable:false,width:110,render:(v,r)=>r.value>r.limit
+            ?<Badge tone="negative" size="sm" icon="alert-triangle">Breach</Badge>
+            :r.value>r.limit*0.85?<Badge tone="caution" size="sm">Near</Badge>:<Badge tone="positive" size="sm" dot>Within</Badge>},
+        ]} />
+      </Card>
+      <Dialog open={dialog} onClose={()=>setDialog(false)} title="New limit alert" icon="bell-plus" subtitle="Notifies you and the risk desk"
+        footer={<><Button size="sm" onClick={()=>setDialog(false)}>Cancel</Button><Button size="sm" variant="primary" onClick={()=>setDialog(false)}>Create alert</Button></>}>
+        <div style={{display:'flex',flexDirection:'column',gap:'var(--space-8)'}}>
+          <Field label="Measure"><Select options={LIMITS.map(l=>({value:l.name,label:l.name}))} /></Field>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'var(--space-8)'}}>
+            <Field label="Trigger at" hint="Percentage of the limit"><Input mono suffix="% of limit" defaultValue="90" /></Field>
+            <Field label="Channel"><Select options={[{value:'app',label:'In app'},{value:'email',label:'In app + email'},{value:'desk',label:'In app + risk desk'}]} /></Field>
+          </div>
+        </div>
+      </Dialog>
+    </>
+  );
+}
+Object.assign(window,{RiskScreen});
+})();
+
+/* ==== AttributionScreen.jsx ==== */
+(function(){
+const { Card, DataTable, DeltaValue, BarChart, LineChart, ChartLegend, SegmentedControl, Button, IconButton, Badge, Tabs, Popover, Accordion, Sparkline } = window.BasisDesignSystem_6e7350;
+
+function AttributionScreen(){
+  const [basis,setBasis]=React.useState('sector');
+  const [period,setPeriod]=React.useState('mtd');
+  const data=basis==='sector'?ATTRIB_SECTOR:ATTRIB_FACTOR;
+  const total=data.reduce((a,d)=>a+d.value,0);
+  const rows=STRATEGIES.map((s,i)=>({id:s.key,strategy:s.label,nav:s.nav,gross:(s.nav*2.1).toFixed(1),
+    sel:Math.round(s.mtd*70),alloc:Math.round(s.mtd*22),fx:i===2?-9:i===3?3:0,total:Math.round(s.mtd*100),spark:wave(20,s.mtd*2,1.2,i+1)}));
+  return (
+    <>
+      <PageHeader title="Attribution" meta={'Global L/S Master · '+(period==='mtd'?'month to date':'year to date')+' · bps of NAV, gross of financing'}
+        actions={<>
+          <SegmentedControl size="sm" value={period} onChange={setPeriod} options={[{value:'mtd',label:'MTD'},{value:'qtd',label:'QTD'},{value:'ytd',label:'YTD'}]} />
+          <Button size="sm" iconLeft="download">Export</Button>
+        </>} />
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'var(--space-6)',marginBottom:'var(--space-6)'}}>
+        <Card dense title="Contribution" subtitle="bps of NAV" icon="bar-chart-3" padding="sm"
+          actions={<SegmentedControl size="sm" value={basis} onChange={setBasis} options={[{value:'sector',label:'Sector'},{value:'factor',label:'Factor'}]} />}
+          footer={<span>Residual is the part of return the model does not explain.</span>}>
+          <BarChart orientation="horizontal" signed barSize={16} gap={7} formatValue={v=>(v>0?'+':'−')+Math.abs(v)+' bps'} data={data} />
+          <div style={{display:'flex',justifyContent:'space-between',marginTop:'var(--space-7)',paddingTop:'var(--space-6)',borderTop:'1px solid var(--border-subtle)',fontSize:'var(--text-2xs)',color:'var(--text-secondary)'}}>
+            <span>Total explained</span>
+            <DeltaValue value={total} unit="bps" size="sm" />
+          </div>
+        </Card>
+        <Card dense title="Daily contribution" subtitle="Long book vs short book, bps" icon="activity" padding="sm">
+          <ChartLegend style={{marginBottom:'var(--space-6)'}} series={[
+            {key:'long',label:'Long book',color:'var(--chart-1)',value:'+218 bps'},
+            {key:'short',label:'Short book',color:'var(--chart-4)',value:'−37 bps'}]} />
+          <LineChart height={188} zeroLine area labels={['1','','5','','10','','15','','20']} formatY={v=>v.toFixed(0)} series={[
+            {key:'long',data:wave(20,11,14,1),color:'var(--chart-1)'},
+            {key:'short',data:wave(20,-2,9,5),color:'var(--chart-4)'}]} />
+        </Card>
+      </div>
+      <Card padding="none" dense title="By strategy" subtitle="Selection, allocation and currency effects" icon="layers"
+        footer={<span>Brinson-Fachler decomposition · daily linked · reconciled through 11 Aug</span>}>
+        <DataTable dense rows={rows} columns={[
+          {key:'strategy',label:'Strategy',emphasis:true,width:170},
+          {key:'nav',label:'% NAV',numeric:true,width:88,render:v=>v.toFixed(1)+'%'},
+          {key:'gross',label:'Gross',numeric:true,width:88,render:v=>v+'%'},
+          {key:'sel',label:'Selection',numeric:true,width:110,description:'Return from picking names within a sleeve',render:v=><DeltaValue value={v} unit="bps" glyph="none" size="xs" />},
+          {key:'alloc',label:'Allocation',numeric:true,width:110,description:'Return from sizing sleeves differently to the benchmark',render:v=><DeltaValue value={v} unit="bps" glyph="none" size="xs" />},
+          {key:'fx',label:'Currency',numeric:true,width:100,render:v=><DeltaValue value={v} unit="bps" glyph="none" size="xs" />},
+          {key:'total',label:'Total',numeric:true,emphasis:true,width:104,render:v=><DeltaValue value={v} unit="bps" size="xs" />},
+          {key:'spark',label:'20d',sortable:false,width:90,render:v=><Sparkline data={v} width={72} height={18} />},
+        ]} />
+      </Card>
+    </>
+  );
+}
+Object.assign(window,{AttributionScreen});
+})();
+
+/* ==== app.jsx ==== */
+(function(){
+const { SideNav, Badge, Icon, Button } = window.BasisDesignSystem_6e7350;
+
+const NAV=[
+  {section:'Portfolio'},
+  {value:'overview',label:'Overview',icon:'layout-dashboard'},
+  {value:'positions',label:'Positions',icon:'table-2',badge:214,children:[{value:'positions',label:'All'},{value:'positions',label:'Longs'},{value:'positions',label:'Shorts'}]},
+  {value:'attribution',label:'Attribution',icon:'bar-chart-3'},
+  {value:'risk',label:'Risk & limits',icon:'gauge',badge:'1'},
+  {section:'Research'},
+  {value:'screens',label:'Screens',icon:'filter',badge:8},
+  {value:'notes',label:'Notes',icon:'file-text'},
+];
+
+const TABS={
+  overview:[{value:'overview',label:'Summary',icon:'layout-dashboard'},{value:'positions',label:'Positions',count:214},{value:'attribution',label:'Attribution'},{value:'risk',label:'Risk'}],
+};
+
+function App(){
+  const [screen,setScreen]=React.useState('overview');
+  const [fund,setFund]=React.useState('Global L/S Master');
+  const [dark,setDark]=React.useState(false);
+  React.useEffect(()=>{document.documentElement.setAttribute('data-theme',dark?'dark':'light');},[dark]);
+
+  const crumbs=[{value:'fund',label:fund,icon:'briefcase'},
+    {label:{overview:'Overview',positions:'Positions',risk:'Risk & limits',attribution:'Attribution',screens:'Screens',notes:'Notes'}[screen]}];
+
+  const body=screen==='positions'?<PositionsScreen />
+    :screen==='risk'?<RiskScreen />
+    :screen==='attribution'?<AttributionScreen />
+    :screen==='screens'||screen==='notes'?(
+      <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start',gap:'var(--space-6)',maxWidth:520,padding:'var(--space-11) 0'}}>
+        <h1 style={{fontSize:'var(--text-2xl)',fontWeight:600,letterSpacing:'var(--tracking-display)'}}>{screen==='screens'?'Screens':'Notes'}</h1>
+        <p style={{fontSize:'var(--text-sm)',color:'var(--text-secondary)',margin:0}}>This module lives in the Research Workspace kit. Open <a href="../research_workspace/index.html">research_workspace</a> to see it.</p>
+        <Button size="sm" iconLeft="arrow-left" onClick={()=>setScreen('overview')}>Back to overview</Button>
+      </div>
+    ):<OverviewScreen onDrill={setScreen} />;
+
+  return (
+    <div style={{display:'flex',height:'100vh',minHeight:0,background:'var(--surface-app)'}}>
+      <SideNav value={screen} onChange={setScreen} items={NAV} header={<Wordmark />}
+        footer={<div style={{display:'flex',alignItems:'center',gap:'var(--space-5)',fontSize:'var(--text-2xs)',color:'var(--text-secondary)'}}>
+          <Badge tone="positive" size="sm" dot>Live</Badge><span style={{fontFamily:'var(--font-mono)'}}>16:04 ET</span></div>} />
+      <div style={{display:'flex',flexDirection:'column',flex:'1 1 auto',minWidth:0}}>
+        <TopBar fund={fund} onFundChange={setFund} dark={dark} onDarkChange={setDark}
+          tab={screen} onTabChange={setScreen} tabs={TABS.overview} crumbs={crumbs} onCrumb={()=>setScreen('overview')} />
+        <main style={{flex:'1 1 auto',minHeight:0,overflow:'auto',padding:'var(--space-9) var(--space-8) var(--space-11)'}}>
+          <div style={{maxWidth:'var(--page-max)',margin:'0 auto'}}>{body}</div>
+        </main>
+      </div>
+    </div>
+  );
+}
+Object.assign(window,{App});
+})();
+
+  var el=document.getElementById('root');
+  if(!window.__basisRoot){ window.__basisRoot=ReactDOM.createRoot(el); }
+  window.__basisRoot.render(React.createElement(window.App));
+}
+(function ready(){
+  if(window.__basisBooted) return;
+  var NS=window.BasisDesignSystem_6e7350;
+  var ok=NS&&NS.SideNav&&NS.DataTable&&NS.LineChart&&NS.MetricCard&&NS.Popover
+    &&window.React&&window.ReactDOM&&window.lucide&&document.getElementById('root');
+  if(ok){ window.__basisBooted=true; __basisBoot(); } else { setTimeout(ready,25); }
+})();
+</script>
+</body></html>

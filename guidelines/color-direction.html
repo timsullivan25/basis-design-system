@@ -1,0 +1,19 @@
+<!-- @dsCard group="Colors" viewport="700x140" name="Value direction" subtitle="The only colors allowed on a number: up, down, flat" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:14px 16px;background:var(--surface-card);font-family:var(--font-sans);color:var(--text-body)}
+.r{display:flex;flex-wrap:wrap}.c{display:flex;flex-direction:column}
+.sw{display:flex;flex-direction:column;gap:0;flex:1 1 0;min-width:0}
+.chip{height:46px;border-radius:var(--radius-sm)}
+.nm{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vl{font-family:var(--font-mono);font-size:9px;color:var(--text-disabled)}
+.lb{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary)}
+</style></head><body>
+<div class="r" style="gap:26px;align-items:flex-end">
+<div class="c" style="gap:4px"><span style="font-family:var(--font-mono);font-size:26px;font-variant-numeric:tabular-nums;color:var(--value-up)">+1.84%</span><span class="nm">--value-up</span></div>
+<div class="c" style="gap:4px"><span style="font-family:var(--font-mono);font-size:26px;font-variant-numeric:tabular-nums;color:var(--value-down)">−0.91%</span><span class="nm">--value-down</span></div>
+<div class="c" style="gap:4px"><span style="font-family:var(--font-mono);font-size:26px;font-variant-numeric:tabular-nums;color:var(--value-flat)">0.00%</span><span class="nm">--value-flat</span></div>
+<div class="c" style="gap:6px;margin-left:auto">
+<span style="display:inline-block;padding:3px 7px;background:var(--value-up-bg);color:var(--value-up);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px">+38 bps</span>
+<span style="display:inline-block;padding:3px 7px;background:var(--value-down-bg);color:var(--value-down);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px">−24 bps</span>
+<span class="nm">--value-*-bg chips</span></div></div>
+</body></html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Basis Design System — reference</title>
+<template id="__bundler_thumbnail" data-bg-color="#0B4FD9">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="800" fill="#0B4FD9"></rect><text x="600" y="470" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="300" font-weight="700" fill="#FFFFFF" letter-spacing="-12">Basis</text><g fill="#8AD4EC"><rect x="330" y="560" width="120" height="26" rx="6"></rect><rect x="480" y="560" width="120" height="26" rx="6"></rect><rect x="630" y="560" width="120" height="26" rx="6"></rect><rect x="780" y="560" width="90" height="26" rx="6"></rect></g></svg>
+</template>
+<link rel="stylesheet" href="styles.css">
+<style>
+body{background:var(--surface-app);padding:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px 96px}
+header.hero{padding:56px 0 32px;border-bottom:1px solid var(--border-default);margin-bottom:40px}
+.hero h1{font-size:44px;font-weight:700;letter-spacing:-0.035em}
+.hero .sub{margin-top:10px;font-size:15px;color:var(--text-secondary);max-width:720px;line-height:1.6}
+.hero .meta{margin-top:18px;display:flex;gap:22px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary)}
+h2.sec{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--text-brand);padding-top:44px;margin-bottom:18px;border-top:1px solid var(--border-default)}
+h3.sub3{font-size:17px;font-weight:600;letter-spacing:-0.012em;margin:30px 0 12px}
+h4.sub4{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);margin:22px 0 10px}
+p.body{font-size:14px;line-height:1.65;color:var(--text-body);max-width:760px;margin:0 0 12px}
+p.body strong{color:var(--text-primary)}
+ul.body{font-size:14px;line-height:1.7;color:var(--text-body);max-width:760px;margin:0 0 12px;padding-left:20px}
+.panel{background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:20px 22px;margin-bottom:14px}
+.ramp{display:flex;gap:6px}
+.sw{flex:1 1 0;min-width:0}
+.chip{border-radius:var(--radius-sm)}
+.nm{font-family:var(--font-mono);font-size:9px;color:var(--text-secondary);margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hx{font-family:var(--font-mono);font-size:9px;color:var(--text-disabled);text-transform:uppercase}
+table.ref{width:100%;font-size:12px;margin-top:6px}
+table.ref th{text-align:left;padding:0 12px 7px 0;font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);border-bottom:1px solid var(--border-default)}
+table.ref td{padding:7px 12px 7px 0;border-bottom:1px solid var(--border-subtle);vertical-align:top;color:var(--text-body);line-height:1.5}
+table.ref td.cn{font-weight:600;color:var(--text-primary);white-space:nowrap}
+table.ref td.cg{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary)}
+table.ref td.cp{font-family:var(--font-mono);font-size:10px;color:var(--text-secondary);line-height:1.6}
+table.ref td.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+pre.code{background:var(--ink-950);color:#C9D1DB;font-family:var(--font-mono);font-size:10.5px;line-height:1.55;padding:16px 18px;border-radius:var(--radius-md);overflow:auto;max-height:420px;margin:0 0 18px;white-space:pre}
+h3.fn{font-family:var(--font-mono);font-size:11px;color:var(--text-brand);margin:22px 0 7px}
+.demo{background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:18px 20px;margin-bottom:10px}
+.demo .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.demo .col{display:flex;flex-direction:column;gap:12px}
+.dlbl{font-size:9px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.note{font-size:12px;color:var(--text-secondary);background:var(--status-info-bg);border:1px solid var(--status-info-border);border-radius:var(--radius-md);padding:12px 14px;margin:0 0 18px;line-height:1.55;max-width:820px}
+.toc{display:grid;grid-template-columns:repeat(4,1fr);gap:6px 20px;margin-top:20px}
+.toc a{font-size:12px;color:var(--text-secondary);border:none}
+.toc a:hover{color:var(--text-link)}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.js"></script>
+<script src="_ds_bundle.js"></script>
+</head><body>
+<div class="wrap">
+<header class="hero">
+<h1>Basis Design System</h1>
+<div class="sub">A design system for a hedge fund platform running quantitative and fundamental strategies. Dense, fast, light on chrome, organised in layers: a summary you absorb in one glance, with a way deeper on every surface. This page is the complete reference — guidelines, foundations, every component with live examples, and the full token source.</div>
+<div class="meta"><span>31 components · 7 groups</span><span>Light default · dark mode via [data-theme="dark"]</span><span>Archivo · Roboto Mono · Newsreader</span><span>Lucide icons</span></div>
+<div class="toc">
+<a href="#voice">Content fundamentals</a><a href="#visual">Visual foundations</a><a href="#icons">Iconography</a><a href="#layers">Layering</a>
+<a href="#color">Color</a><a href="#type">Type</a><a href="#space">Spacing &amp; density</a><a href="#depth">Elevation &amp; motion</a>
+<a href="#inventory">Component inventory</a><a href="#ex-primitives">Primitives</a><a href="#ex-forms">Forms</a><a href="#ex-data">Data</a>
+<a href="#ex-charts">Charts</a><a href="#ex-feedback">Feedback</a><a href="#ex-nav">Navigation &amp; disclosure</a><a href="#tokens">Token source</a>
+</div>
+</header>
+
+<div class="note"><strong>Provenance.</strong> This system was authored from a written brief — no company name, logo, font files, screenshots, Figma file or codebase were supplied. "Basis" is a working name, there is no logo (the name is set in Archivo Bold at −0.03em), and Archivo / Roboto Mono / Newsreader are Google Fonts stand-ins. Lucide is a flagged icon substitution. Everything else is derived from the brief.</div>
+
+<h2 class="sec" id="voice">Content fundamentals</h2>
+<p class="body"><strong>Voice.</strong> Neutral, specific, unhedged. The interface states what is true and where the number came from; it does not congratulate the user or explain itself twice.</p>
+<p class="body"><strong>Person.</strong> No "I". Second person only for the user's own artefacts — "Your screens", "Saved to your workspace". System state is impersonal: "Prices delayed 15 minutes", not "We're having trouble".</p>
+<p class="body"><strong>Casing.</strong> Sentence case for everything readable — headings, buttons, dialog titles, alert text. UPPERCASE only for micro-caps labels: field labels, table column headers, KPI labels, popover header strips (11px, 600, 0.07em tracking). Never title case.</p>
+<p class="body"><strong>Numbers carry the meaning, words carry the context.</strong> A label names the measure, the figure states it, a short clause states its provenance: <code>NET EXPOSURE / 42.8% NAV / −1.4% vs prior close / 16:00 ET</code>. Every derived figure gets a methodology note — a column description, a Tooltip, or a Popover — never a footnote asterisk.</p>
+<p class="body"><strong>Units.</strong> Percentages to 1–2 decimals; contribution and spreads in bps; notional with thousands separators; currency stated once in the header, not per row. Signed values always carry their sign using a true minus (−, U+2212), not a hyphen. Timestamps are exchange-local with the zone (<code>16:00 ET</code>). Settlement basis stated where it matters (<code>T+1</code>).</p>
+<p class="body"><strong>Empty and error states</strong> say what is missing, then what to do: "No positions match these filters. Clear one to widen the set." Never "Oops" or "Something went wrong".</p>
+<p class="body"><strong>Length.</strong> Buttons 1–3 words. Badges 1–2 words. Alert titles under 60 characters with detail in the body. Analyst prose is the one place sentences run long, and it is set in the serif to signal a human wrote it.</p>
+<p class="body"><strong>Emoji: never.</strong> Not in UI, not in labels, not in commentary.</p>
+<div class="panel"><div class="dlbl">The register</div>
+<p class="prose-serif" style="margin:0 0 8px">Energy contributed 64 bps, almost all of it from two refiners we added in June.</p>
+<p class="prose-serif" style="margin:0 0 8px">Global L/S is at 182% gross against a 175% mandate limit. Breach opened at 14:32 ET.</p>
+<p class="prose-serif" style="margin:0">Attribution recalculated on the T+1 book.</p></div>
+
+<h2 class="sec" id="visual">Visual foundations</h2>
+<p class="body"><strong>Palette.</strong> Cool near-black ink for text and structure; electric corporate blue <code>#0B4FD9</code> as the single action colour; light blue <code>#1D9BC7</code> as secondary brand and second data series. Green and red are reserved for direction of value, never decoration. Amber is caution only. Violet appears only in charts. At most one accent surface per view; the page is <code>--ink-50</code>, cards are white.</p>
+<p class="body"><strong>Type.</strong> Archivo throughout the UI; Roboto Mono for every figure, always tabular; Newsreader for analyst prose. Body 13px, labels 11px uppercase, KPI figures 22px mono, display 28–48px.</p>
+<p class="body"><strong>Density.</strong> 2px base scale. 8px is the default gap inside a control, 12–16px between elements, 24–32px between sections. Control heights 20/24/28/34/40 with 28px default — deliberately ~20% tighter than Material's 36–40px baseline. Table rows 30px, 26px dense. This compactness is the core promise: more information per screen without shrinking type below 11px.</p>
+<p class="body"><strong>Backgrounds.</strong> Flat colour. No decorative gradients (the only gradients are the 18%→0% fills under sparklines and line charts), no photography, no illustration, no texture, no pattern, nothing full-bleed. A surface that needs to recede goes to <code>--surface-sunken</code>, not to an image.</p>
+<p class="body"><strong>Cards.</strong> White surface, 1px hairline, 5px radius, flat — no shadow in page. Optional 34/40px header with icon, title, subtitle, right-aligned actions; optional muted footer for as-of stamps and provenance. Elevation signals floating, not importance: shadow-1 on controls, 2 on hover lift, 3 on popovers, 4 on dialogs.</p>
+<p class="body"><strong>Borders and radii.</strong> Structure is carried by hairlines, not shadows. 2px chips and checkboxes, 3px inner elements, 5px controls and cards, 8px dialogs, pill for tags and meters. Nothing more rounded than 8px carries content. A 2px top border on a MetricCard is the only coloured-edge pattern, and only for status.</p>
+<p class="body"><strong>Animation.</strong> Fast and decelerating. 80ms hover/press, 120ms colour and focus, 180ms expand, 260ms chart draw, 400ms route change. Default easing <code>cubic-bezier(.2,.8,.3,1)</code>. One bounce in the whole system: the Switch knob. Fades and 4px rises for entrances; no slides across the viewport, no parallax, no looping motion except the spinner. <code>prefers-reduced-motion</code> disables all of it.</p>
+<p class="body"><strong>States.</strong> Hover tints a surface one step and never changes colour family; text goes one step darker; primary buttons darken to blue-800; drill-in affordances turn blue and nudge their chevron 1px. Press is a 0.5px downward nudge plus one darkening step — no scaling, no ripple. Focus is a 3px blue ring at 20% plus a blue border, on <code>:focus-visible</code> only. Selection is blue-50 fill with a blue-300 border.</p>
+<p class="body"><strong>Transparency and blur.</strong> Rare and functional: dialog scrim at 40% ink with a 2px backdrop blur; <code>--blur-panel</code> for floating panels over live data. Never on cards, headers or charts — blur costs legibility and legibility is the product.</p>
+<p class="body"><strong>Layout.</strong> 216px left rail (48px collapsed), 44px top bar, 34px sub-bars, 320px right drill-in panel, 16px gutters, content max 1440px. Rail, top bar and tab bars are fixed; only the content column scrolls; table headers are sticky. Nothing floats over content except popovers, tooltips, dialogs and toasts.</p>
+<p class="body"><strong>Charts.</strong> Horizontal gridlines only; no plot background, no chart borders, no 3D, no drop shadows. Axis figures 9px mono. Benchmarks always dashed <code>--chart-benchmark</code>. Categorical series take <code>--chart-1..12</code> in order. Legends sit above the plot and carry the latest value so they double as a readout.</p>
+<p class="body"><strong>Imagery.</strong> There is none, by design. Where a brand would put a photo, this system puts data.</p>
+<p class="body"><strong>Dark mode.</strong> Same tokens remapped under <code>[data-theme="dark"]</code>: #080B10 app, ink-900 cards, action lightens to blue-600, up/down brighten to #3FBE8C / #F0637F. Light mode is the default and the primary design target.</p>
+
+<h2 class="sec" id="icons">Iconography</h2>
+<ul class="body">
+<li><strong>Set:</strong> Lucide 0.469, 2px stroke, 24×24 grid — a flagged substitution, chosen for even stroke weight and small-size legibility.</li>
+<li><strong>Delivery:</strong> the Lucide UMD bundle; <code>Icon</code> renders inline SVG from the library's icon data so glyphs inherit <code>currentColor</code>. Nothing is drawn by hand.</li>
+<li><strong>Sizes:</strong> 12px in table cells, 14px inside controls, 15–16px in nav and card headers. Never larger than the text beside it, never above 16px in app chrome.</li>
+<li><strong>Colour:</strong> <code>--text-secondary</code> or <code>--text-tertiary</code> by default; <code>--text-brand</code> for active and drill-in states; status colours only inside Alert and Badge.</li>
+<li><strong>Usage:</strong> an icon is context, not decoration. Every icon sits beside a label or is an IconButton with a <code>label</code>. No icon-only navigation, no icon grids, no illustrated empty states. Emoji never; the only unicode-as-icon is the true minus sign.</li>
+<li><strong>Vocabulary:</strong> <code>layout-dashboard</code> overview · <code>table-2</code> positions · <code>gauge</code> risk · <code>filter</code> screens · <code>line-chart</code>/<code>bar-chart-3</code>/<code>pie-chart</code> charts · <code>scale</code> exposure · <code>trending-up</code>/<code>trending-down</code> direction · <code>alert-triangle</code> breach · <code>info</code> methodology · <code>download</code> export · <code>settings-2</code> configure · <code>search</code> find · <code>chevron-right</code> drill · <code>cpu</code> quant · <code>globe</code> macro · <code>file-text</code> notes · <code>briefcase</code> fund.</li>
+</ul>
+<div class="panel"><div class="dlbl">The set in use — 16px, --text-secondary</div>
+<div class="row" style="display:flex;gap:15px;flex-wrap:wrap"><i data-lucide="layout-dashboard" style="width:16px;height:16px;color:var(--text-secondary)" title="layout-dashboard"></i><i data-lucide="table-2" style="width:16px;height:16px;color:var(--text-secondary)" title="table-2"></i><i data-lucide="gauge" style="width:16px;height:16px;color:var(--text-secondary)" title="gauge"></i><i data-lucide="filter" style="width:16px;height:16px;color:var(--text-secondary)" title="filter"></i><i data-lucide="line-chart" style="width:16px;height:16px;color:var(--text-secondary)" title="line-chart"></i><i data-lucide="bar-chart-3" style="width:16px;height:16px;color:var(--text-secondary)" title="bar-chart-3"></i><i data-lucide="pie-chart" style="width:16px;height:16px;color:var(--text-secondary)" title="pie-chart"></i><i data-lucide="scale" style="width:16px;height:16px;color:var(--text-secondary)" title="scale"></i><i data-lucide="layers" style="width:16px;height:16px;color:var(--text-secondary)" title="layers"></i><i data-lucide="trending-up" style="width:16px;height:16px;color:var(--text-secondary)" title="trending-up"></i><i data-lucide="trending-down" style="width:16px;height:16px;color:var(--text-secondary)" title="trending-down"></i><i data-lucide="alert-triangle" style="width:16px;height:16px;color:var(--text-secondary)" title="alert-triangle"></i><i data-lucide="octagon-alert" style="width:16px;height:16px;color:var(--text-secondary)" title="octagon-alert"></i><i data-lucide="check-circle-2" style="width:16px;height:16px;color:var(--text-secondary)" title="check-circle-2"></i><i data-lucide="info" style="width:16px;height:16px;color:var(--text-secondary)" title="info"></i><i data-lucide="download" style="width:16px;height:16px;color:var(--text-secondary)" title="download"></i><i data-lucide="share-2" style="width:16px;height:16px;color:var(--text-secondary)" title="share-2"></i><i data-lucide="settings-2" style="width:16px;height:16px;color:var(--text-secondary)" title="settings-2"></i><i data-lucide="sliders-horizontal" style="width:16px;height:16px;color:var(--text-secondary)" title="sliders-horizontal"></i><i data-lucide="columns-3" style="width:16px;height:16px;color:var(--text-secondary)" title="columns-3"></i><i data-lucide="search" style="width:16px;height:16px;color:var(--text-secondary)" title="search"></i><i data-lucide="chevron-right" style="width:16px;height:16px;color:var(--text-secondary)" title="chevron-right"></i><i data-lucide="chevron-down" style="width:16px;height:16px;color:var(--text-secondary)" title="chevron-down"></i><i data-lucide="cpu" style="width:16px;height:16px;color:var(--text-secondary)" title="cpu"></i><i data-lucide="globe" style="width:16px;height:16px;color:var(--text-secondary)" title="globe"></i><i data-lucide="landmark" style="width:16px;height:16px;color:var(--text-secondary)" title="landmark"></i><i data-lucide="briefcase" style="width:16px;height:16px;color:var(--text-secondary)" title="briefcase"></i><i data-lucide="file-text" style="width:16px;height:16px;color:var(--text-secondary)" title="file-text"></i><i data-lucide="notebook-pen" style="width:16px;height:16px;color:var(--text-secondary)" title="notebook-pen"></i><i data-lucide="users" style="width:16px;height:16px;color:var(--text-secondary)" title="users"></i><i data-lucide="bell" style="width:16px;height:16px;color:var(--text-secondary)" title="bell"></i><i data-lucide="star" style="width:16px;height:16px;color:var(--text-secondary)" title="star"></i><i data-lucide="plus" style="width:16px;height:16px;color:var(--text-secondary)" title="plus"></i><i data-lucide="x" style="width:16px;height:16px;color:var(--text-secondary)" title="x"></i><i data-lucide="check" style="width:16px;height:16px;color:var(--text-secondary)" title="check"></i><i data-lucide="refresh-cw" style="width:16px;height:16px;color:var(--text-secondary)" title="refresh-cw"></i><i data-lucide="maximize-2" style="width:16px;height:16px;color:var(--text-secondary)" title="maximize-2"></i><i data-lucide="more-horizontal" style="width:16px;height:16px;color:var(--text-secondary)" title="more-horizontal"></i><i data-lucide="droplets" style="width:16px;height:16px;color:var(--text-secondary)" title="droplets"></i><i data-lucide="zap" style="width:16px;height:16px;color:var(--text-secondary)" title="zap"></i><i data-lucide="activity" style="width:16px;height:16px;color:var(--text-secondary)" title="activity"></i><i data-lucide="git-fork" style="width:16px;height:16px;color:var(--text-secondary)" title="git-fork"></i><i data-lucide="list-checks" style="width:16px;height:16px;color:var(--text-secondary)" title="list-checks"></i><i data-lucide="building-2" style="width:16px;height:16px;color:var(--text-secondary)" title="building-2"></i><i data-lucide="inbox" style="width:16px;height:16px;color:var(--text-secondary)" title="inbox"></i><i data-lucide="wallet" style="width:16px;height:16px;color:var(--text-secondary)" title="wallet"></i><i data-lucide="banknote" style="width:16px;height:16px;color:var(--text-secondary)" title="banknote"></i><i data-lucide="target" style="width:16px;height:16px;color:var(--text-secondary)" title="target"></i><i data-lucide="history" style="width:16px;height:16px;color:var(--text-secondary)" title="history"></i><i data-lucide="eye" style="width:16px;height:16px;color:var(--text-secondary)" title="eye"></i></div></div>
+
+<h2 class="sec" id="layers">Layering &amp; modularity</h2>
+<p class="body">Every screen follows the same law. <strong>Layer 1</strong> is summary tiles and collapsed rows — absorbed in one glance. <strong>Layer 2</strong> is tables and charts. <strong>Layer 3</strong> is drill-in panels, expanded rows and methodology popovers. Nothing important lives only at Layer 3; a figure that matters always has a Layer 1 or 2 signal pointing at it.</p>
+<p class="body">Modularity works the same way twice: a module can stand alone or be extended to capture nuance by strategy, security type or company type. In the UI that shows up as "extend from" — inherit a parent's criteria, override what differs, keep the lineage visible.</p>
+
+<h2 class="sec" id="color">Color</h2>
+<h4 class="sub4">Brand blue — primary ramp, --blue-700 is the action colour</h4>
+<div class="panel"><div class="ramp"><div class="sw"><div class="chip" style="height:42px;background:var(--blue-50)" data-var="--blue-50"></div><div class="nm">50</div><div class="hx" data-hex="--blue-50"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-100)" data-var="--blue-100"></div><div class="nm">100</div><div class="hx" data-hex="--blue-100"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-200)" data-var="--blue-200"></div><div class="nm">200</div><div class="hx" data-hex="--blue-200"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-300)" data-var="--blue-300"></div><div class="nm">300</div><div class="hx" data-hex="--blue-300"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-400)" data-var="--blue-400"></div><div class="nm">400</div><div class="hx" data-hex="--blue-400"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-500)" data-var="--blue-500"></div><div class="nm">500</div><div class="hx" data-hex="--blue-500"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-600)" data-var="--blue-600"></div><div class="nm">600</div><div class="hx" data-hex="--blue-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-700)" data-var="--blue-700"></div><div class="nm">700 ●</div><div class="hx" data-hex="--blue-700"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-800)" data-var="--blue-800"></div><div class="nm">800</div><div class="hx" data-hex="--blue-800"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-900)" data-var="--blue-900"></div><div class="nm">900</div><div class="hx" data-hex="--blue-900"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--blue-950)" data-var="--blue-950"></div><div class="nm">950</div><div class="hx" data-hex="--blue-950"></div></div></div></div>
+<h4 class="sub4">Sky — secondary brand, second data series</h4>
+<div class="panel"><div class="ramp"><div class="sw"><div class="chip" style="height:42px;background:var(--sky-50)" data-var="--sky-50"></div><div class="nm">50</div><div class="hx" data-hex="--sky-50"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-100)" data-var="--sky-100"></div><div class="nm">100</div><div class="hx" data-hex="--sky-100"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-200)" data-var="--sky-200"></div><div class="nm">200</div><div class="hx" data-hex="--sky-200"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-300)" data-var="--sky-300"></div><div class="nm">300</div><div class="hx" data-hex="--sky-300"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-400)" data-var="--sky-400"></div><div class="nm">400</div><div class="hx" data-hex="--sky-400"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-500)" data-var="--sky-500"></div><div class="nm">500</div><div class="hx" data-hex="--sky-500"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-600)" data-var="--sky-600"></div><div class="nm">600 ●</div><div class="hx" data-hex="--sky-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-700)" data-var="--sky-700"></div><div class="nm">700</div><div class="hx" data-hex="--sky-700"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-800)" data-var="--sky-800"></div><div class="nm">800</div><div class="hx" data-hex="--sky-800"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--sky-900)" data-var="--sky-900"></div><div class="nm">900</div><div class="hx" data-hex="--sky-900"></div></div></div></div>
+<h4 class="sub4">Ink — cool near-black neutrals: text, borders, surfaces</h4>
+<div class="panel"><div class="ramp"><div class="sw"><div class="chip" style="height:42px;background:var(--ink-25)" data-var="--ink-25"></div><div class="nm">25</div><div class="hx" data-hex="--ink-25"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-50)" data-var="--ink-50"></div><div class="nm">50</div><div class="hx" data-hex="--ink-50"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-100)" data-var="--ink-100"></div><div class="nm">100</div><div class="hx" data-hex="--ink-100"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-150)" data-var="--ink-150"></div><div class="nm">150</div><div class="hx" data-hex="--ink-150"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-200)" data-var="--ink-200"></div><div class="nm">200</div><div class="hx" data-hex="--ink-200"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-300)" data-var="--ink-300"></div><div class="nm">300</div><div class="hx" data-hex="--ink-300"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-400)" data-var="--ink-400"></div><div class="nm">400</div><div class="hx" data-hex="--ink-400"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-500)" data-var="--ink-500"></div><div class="nm">500</div><div class="hx" data-hex="--ink-500"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-600)" data-var="--ink-600"></div><div class="nm">600</div><div class="hx" data-hex="--ink-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-700)" data-var="--ink-700"></div><div class="nm">700</div><div class="hx" data-hex="--ink-700"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-800)" data-var="--ink-800"></div><div class="nm">800</div><div class="hx" data-hex="--ink-800"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-900)" data-var="--ink-900"></div><div class="nm">900</div><div class="hx" data-hex="--ink-900"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--ink-950)" data-var="--ink-950"></div><div class="nm">950</div><div class="hx" data-hex="--ink-950"></div></div></div></div>
+<h4 class="sub4">Green · red · amber · violet — direction, status, chart accents</h4>
+<div class="panel"><div class="ramp"><div class="sw"><div class="chip" style="height:42px;background:var(--green-700)" data-var="--green-700"></div><div class="nm">green-700</div><div class="hx" data-hex="--green-700"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--green-600)" data-var="--green-600"></div><div class="nm">green-600</div><div class="hx" data-hex="--green-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--green-300)" data-var="--green-300"></div><div class="nm">green-300</div><div class="hx" data-hex="--green-300"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--red-700)" data-var="--red-700"></div><div class="nm">red-700</div><div class="hx" data-hex="--red-700"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--red-600)" data-var="--red-600"></div><div class="nm">red-600</div><div class="hx" data-hex="--red-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--red-300)" data-var="--red-300"></div><div class="nm">red-300</div><div class="hx" data-hex="--red-300"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--amber-700)" data-var="--amber-700"></div><div class="nm">amber-700</div><div class="hx" data-hex="--amber-700"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--amber-600)" data-var="--amber-600"></div><div class="nm">amber-600</div><div class="hx" data-hex="--amber-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--amber-300)" data-var="--amber-300"></div><div class="nm">amber-300</div><div class="hx" data-hex="--amber-300"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--violet-600)" data-var="--violet-600"></div><div class="nm">violet-600</div><div class="hx" data-hex="--violet-600"></div></div><div class="sw"><div class="chip" style="height:42px;background:var(--violet-300)" data-var="--violet-300"></div><div class="nm">violet-300</div><div class="hx" data-hex="--violet-300"></div></div></div></div>
+<h4 class="sub4">Status — background / border / foreground trios</h4>
+<div class="panel"><div class="ramp" style="gap:10px"><div class="sw"><div style="display:flex;align-items:center;gap:6px;height:42px;padding:0 10px;background:var(--status-positive-bg);border:1px solid var(--status-positive-border);border-radius:var(--radius-sm);font-size:11px;font-weight:600;color:var(--status-positive-fg);text-transform:capitalize">positive</div><div class="nm">--status-positive-*</div></div><div class="sw"><div style="display:flex;align-items:center;gap:6px;height:42px;padding:0 10px;background:var(--status-negative-bg);border:1px solid var(--status-negative-border);border-radius:var(--radius-sm);font-size:11px;font-weight:600;color:var(--status-negative-fg);text-transform:capitalize">negative</div><div class="nm">--status-negative-*</div></div><div class="sw"><div style="display:flex;align-items:center;gap:6px;height:42px;padding:0 10px;background:var(--status-caution-bg);border:1px solid var(--status-caution-border);border-radius:var(--radius-sm);font-size:11px;font-weight:600;color:var(--status-caution-fg);text-transform:capitalize">caution</div><div class="nm">--status-caution-*</div></div><div class="sw"><div style="display:flex;align-items:center;gap:6px;height:42px;padding:0 10px;background:var(--status-info-bg);border:1px solid var(--status-info-border);border-radius:var(--radius-sm);font-size:11px;font-weight:600;color:var(--status-info-fg);text-transform:capitalize">info</div><div class="nm">--status-info-*</div></div><div class="sw"><div style="display:flex;align-items:center;gap:6px;height:42px;padding:0 10px;background:var(--status-neutral-bg);border:1px solid var(--status-neutral-border);border-radius:var(--radius-sm);font-size:11px;font-weight:600;color:var(--status-neutral-fg);text-transform:capitalize">neutral</div><div class="nm">--status-neutral-*</div></div></div></div>
+<h4 class="sub4">Value direction — the only colours allowed on a number</h4>
+<div class="panel"><div style="display:flex;gap:26px;align-items:flex-end">
+<div><div style="font-family:var(--font-mono);font-size:26px;font-variant-numeric:tabular-nums;color:var(--value-up)">+1.84%</div><div class="nm">--value-up</div></div>
+<div><div style="font-family:var(--font-mono);font-size:26px;font-variant-numeric:tabular-nums;color:var(--value-down)">−0.91%</div><div class="nm">--value-down</div></div>
+<div><div style="font-family:var(--font-mono);font-size:26px;font-variant-numeric:tabular-nums;color:var(--value-flat)">0.00%</div><div class="nm">--value-flat</div></div>
+<div style="display:flex;gap:8px;margin-left:auto">
+<span style="padding:3px 7px;background:var(--value-up-bg);color:var(--value-up);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px">+38 bps</span>
+<span style="padding:3px 7px;background:var(--value-down-bg);color:var(--value-down);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:12px">−24 bps</span></div></div></div>
+<h4 class="sub4">Chart — categorical, assign in order 1–12</h4>
+<div class="panel"><div class="ramp"><div class="sw"><div class="chip" style="height:38px;background:var(--chart-1)" data-var="--chart-1"></div><div class="nm">1</div><div class="hx" data-hex="--chart-1"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-2)" data-var="--chart-2"></div><div class="nm">2</div><div class="hx" data-hex="--chart-2"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-3)" data-var="--chart-3"></div><div class="nm">3</div><div class="hx" data-hex="--chart-3"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-4)" data-var="--chart-4"></div><div class="nm">4</div><div class="hx" data-hex="--chart-4"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-5)" data-var="--chart-5"></div><div class="nm">5</div><div class="hx" data-hex="--chart-5"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-6)" data-var="--chart-6"></div><div class="nm">6</div><div class="hx" data-hex="--chart-6"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-7)" data-var="--chart-7"></div><div class="nm">7</div><div class="hx" data-hex="--chart-7"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-8)" data-var="--chart-8"></div><div class="nm">8</div><div class="hx" data-hex="--chart-8"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-9)" data-var="--chart-9"></div><div class="nm">9</div><div class="hx" data-hex="--chart-9"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-10)" data-var="--chart-10"></div><div class="nm">10</div><div class="hx" data-hex="--chart-10"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-11)" data-var="--chart-11"></div><div class="nm">11</div><div class="hx" data-hex="--chart-11"></div></div><div class="sw"><div class="chip" style="height:38px;background:var(--chart-12)" data-var="--chart-12"></div><div class="nm">12</div><div class="hx" data-hex="--chart-12"></div></div></div></div>
+<h4 class="sub4">Chart — sequential (blue, sky) and diverging (red → neutral → blue)</h4>
+<div class="panel"><div class="ramp"><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-1)" data-var="--seq-blue-1"></div><div class="nm">1</div><div class="hx" data-hex="--seq-blue-1"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-2)" data-var="--seq-blue-2"></div><div class="nm">2</div><div class="hx" data-hex="--seq-blue-2"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-3)" data-var="--seq-blue-3"></div><div class="nm">3</div><div class="hx" data-hex="--seq-blue-3"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-4)" data-var="--seq-blue-4"></div><div class="nm">4</div><div class="hx" data-hex="--seq-blue-4"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-5)" data-var="--seq-blue-5"></div><div class="nm">5</div><div class="hx" data-hex="--seq-blue-5"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-6)" data-var="--seq-blue-6"></div><div class="nm">6</div><div class="hx" data-hex="--seq-blue-6"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-7)" data-var="--seq-blue-7"></div><div class="nm">7</div><div class="hx" data-hex="--seq-blue-7"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-blue-8)" data-var="--seq-blue-8"></div><div class="nm">8</div><div class="hx" data-hex="--seq-blue-8"></div></div></div>
+<div style="height:8px"></div><div class="ramp"><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-1)" data-var="--seq-sky-1"></div><div class="nm">1</div><div class="hx" data-hex="--seq-sky-1"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-2)" data-var="--seq-sky-2"></div><div class="nm">2</div><div class="hx" data-hex="--seq-sky-2"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-3)" data-var="--seq-sky-3"></div><div class="nm">3</div><div class="hx" data-hex="--seq-sky-3"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-4)" data-var="--seq-sky-4"></div><div class="nm">4</div><div class="hx" data-hex="--seq-sky-4"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-5)" data-var="--seq-sky-5"></div><div class="nm">5</div><div class="hx" data-hex="--seq-sky-5"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-6)" data-var="--seq-sky-6"></div><div class="nm">6</div><div class="hx" data-hex="--seq-sky-6"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-7)" data-var="--seq-sky-7"></div><div class="nm">7</div><div class="hx" data-hex="--seq-sky-7"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--seq-sky-8)" data-var="--seq-sky-8"></div><div class="nm">8</div><div class="hx" data-hex="--seq-sky-8"></div></div></div>
+<div style="height:8px"></div><div class="ramp"><div class="sw"><div class="chip" style="height:26px;background:var(--div-neg-4)" data-var="--div-neg-4"></div><div class="nm">neg-4</div><div class="hx" data-hex="--div-neg-4"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-neg-3)" data-var="--div-neg-3"></div><div class="nm">neg-3</div><div class="hx" data-hex="--div-neg-3"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-neg-2)" data-var="--div-neg-2"></div><div class="nm">neg-2</div><div class="hx" data-hex="--div-neg-2"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-neg-1)" data-var="--div-neg-1"></div><div class="nm">neg-1</div><div class="hx" data-hex="--div-neg-1"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-mid)" data-var="--div-mid"></div><div class="nm">mid</div><div class="hx" data-hex="--div-mid"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-pos-1)" data-var="--div-pos-1"></div><div class="nm">pos-1</div><div class="hx" data-hex="--div-pos-1"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-pos-2)" data-var="--div-pos-2"></div><div class="nm">pos-2</div><div class="hx" data-hex="--div-pos-2"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-pos-3)" data-var="--div-pos-3"></div><div class="nm">pos-3</div><div class="hx" data-hex="--div-pos-3"></div></div><div class="sw"><div class="chip" style="height:26px;background:var(--div-pos-4)" data-var="--div-pos-4"></div><div class="nm">pos-4</div><div class="hx" data-hex="--div-pos-4"></div></div></div></div>
+<h4 class="sub4">Dark mode surfaces</h4>
+<div class="panel" style="padding:0;overflow:hidden"><div data-theme="dark" style="display:flex;gap:10px;padding:16px;background:var(--surface-app)">
+<div class="sw"><div style="height:40px;background:var(--surface-app);border:1px solid var(--border-default);border-radius:var(--radius-sm)"></div><div class="nm" style="color:var(--text-tertiary)">App</div></div><div class="sw"><div style="height:40px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-sm)"></div><div class="nm" style="color:var(--text-tertiary)">Card</div></div><div class="sw"><div style="height:40px;background:var(--surface-raised);border:1px solid var(--border-default);border-radius:var(--radius-sm)"></div><div class="nm" style="color:var(--text-tertiary)">Raised</div></div><div class="sw"><div style="height:40px;background:var(--surface-sunken);border:1px solid var(--border-default);border-radius:var(--radius-sm)"></div><div class="nm" style="color:var(--text-tertiary)">Sunken</div></div><div class="sw"><div style="height:40px;background:var(--surface-selected);border:1px solid var(--border-default);border-radius:var(--radius-sm)"></div><div class="nm" style="color:var(--text-tertiary)">Selected</div></div><div class="sw"><div style="height:40px;background:var(--surface-table-head);border:1px solid var(--border-default);border-radius:var(--radius-sm)"></div><div class="nm" style="color:var(--text-tertiary)">Table head</div></div>
+<div style="display:flex;flex-direction:column;justify-content:center;gap:2px;padding-left:10px">
+<span style="font-family:var(--font-mono);font-size:14px;color:var(--value-up)">+1.84%</span>
+<span style="font-family:var(--font-mono);font-size:14px;color:var(--value-down)">−0.91%</span>
+<span style="font-size:11px;color:var(--text-secondary)">Secondary text</span></div></div></div>
+
+<h2 class="sec" id="type">Type</h2>
+<div class="panel">
+<div class="dlbl">Archivo — UI &amp; display · --font-sans</div>
+<div style="font-size:28px;font-weight:600;letter-spacing:-0.022em;color:var(--text-primary);margin-bottom:18px">Net exposure by strategy</div>
+<div class="dlbl">Roboto Mono — all figures · --font-mono · tabular</div>
+<div style="font-family:var(--font-mono);font-size:22px;font-variant-numeric:tabular-nums;color:var(--text-primary);margin-bottom:18px">1,284,309.50 · 42.8% · −38 bps</div>
+<div class="dlbl">Newsreader — research prose · --font-serif</div>
+<div style="font-family:var(--font-serif);font-size:16px;line-height:1.6;color:var(--text-body)">The dispersion trade carried the sleeve through a quiet August.</div>
+</div>
+<div class="g2">
+<div class="panel"><div class="dlbl">Scale</div><table class="ref"><tr><th>Token</th><th>Size</th><th>Sample</th></tr>
+<tr><td class="mono">--text-5xl</td><td class="mono">48px</td><td style="font-size:48px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-4xl</td><td class="mono">36px</td><td style="font-size:36px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-3xl</td><td class="mono">28px</td><td style="font-size:28px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-2xl</td><td class="mono">22px</td><td style="font-size:22px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-xl</td><td class="mono">18px</td><td style="font-size:18px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-lg</td><td class="mono">16px</td><td style="font-size:16px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-base</td><td class="mono">14px</td><td style="font-size:14px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-sm</td><td class="mono">13px</td><td style="font-size:13px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-xs</td><td class="mono">12px</td><td style="font-size:12px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-2xs</td><td class="mono">11px</td><td style="font-size:11px;color:var(--text-primary)">Alpha, after costs</td></tr><tr><td class="mono">--text-3xs</td><td class="mono">10px</td><td style="font-size:10px;color:var(--text-primary)">Alpha, after costs</td></tr>
+</table></div>
+<div class="panel"><div class="dlbl">Roles</div><table class="ref"><tr><th>Use</th><th>Spec</th></tr>
+<tr><td>Display / page title</td><td class="mono">28–48px · 600 · −0.022em</td></tr><tr><td>Card / section title</td><td class="mono">13–17px · 600 · −0.012em</td></tr><tr><td>Body</td><td class="mono">13px · 400 · 1.5</td></tr><tr><td>App chrome</td><td class="mono">12–13px · 400/500</td></tr><tr><td>Micro-caps label</td><td class="mono">11px · 600 · 0.07em · uppercase</td></tr><tr><td>KPI figure</td><td class="mono">22px mono · 500 · tabular</td></tr><tr><td>Table figure</td><td class="mono">12–13px mono · tabular</td></tr><tr><td>Axis figure</td><td class="mono">9px mono</td></tr><tr><td>Research prose</td><td class="mono">15px serif · 1.65</td></tr>
+</table></div></div>
+<div class="panel"><div class="dlbl">Tabular numerics — every figure aligns down its column</div>
+<table class="ref"><tr><th>Ticker</th><th style="text-align:right">Weight</th><th style="text-align:right">Notional</th><th style="text-align:right">P&amp;L</th></tr>
+<tr><td style="font-weight:500;color:var(--text-primary)">XOM US</td><td class="mono" style="text-align:right">4.2%</td><td class="mono" style="text-align:right">12,480,000</td><td class="mono" style="text-align:right;color:var(--value-up)">+38 bps</td></tr><tr><td style="font-weight:500;color:var(--text-primary)">NVDA US</td><td class="mono" style="text-align:right">3.8%</td><td class="mono" style="text-align:right">9,105,400</td><td class="mono" style="text-align:right;color:var(--value-up)">+112 bps</td></tr><tr><td style="font-weight:500;color:var(--text-primary)">SHEL LN</td><td class="mono" style="text-align:right">−2.1%</td><td class="mono" style="text-align:right">−6,240,000</td><td class="mono" style="text-align:right;color:var(--value-down)">−24 bps</td></tr><tr><td style="font-weight:500;color:var(--text-primary)">6758 JP</td><td class="mono" style="text-align:right">1.6%</td><td class="mono" style="text-align:right">4,009,120</td><td class="mono" style="text-align:right;color:var(--value-down)">−6 bps</td></tr>
+</table></div>
+
+<h2 class="sec" id="space">Spacing &amp; density</h2>
+<div class="panel"><div class="dlbl">Spacing scale — 2px base, --space-4 (8px) is the default gap inside a control</div>
+<div style="display:flex;gap:14px;align-items:flex-end"><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:2px;height:2px;background:var(--blue-700);border-radius:1px"></div><span class="hx">2</span><span class="nm">1</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:4px;height:4px;background:var(--blue-700);border-radius:1px"></div><span class="hx">4</span><span class="nm">2</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:6px;height:6px;background:var(--blue-700);border-radius:1px"></div><span class="hx">6</span><span class="nm">3</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:8px;height:8px;background:var(--blue-700);border-radius:1px"></div><span class="hx">8</span><span class="nm">4</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:10px;height:10px;background:var(--blue-700);border-radius:1px"></div><span class="hx">10</span><span class="nm">5</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:12px;height:12px;background:var(--blue-700);border-radius:1px"></div><span class="hx">12</span><span class="nm">6</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:14px;height:14px;background:var(--blue-700);border-radius:1px"></div><span class="hx">14</span><span class="nm">7</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:16px;height:16px;background:var(--blue-700);border-radius:1px"></div><span class="hx">16</span><span class="nm">8</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:20px;height:20px;background:var(--blue-700);border-radius:1px"></div><span class="hx">20</span><span class="nm">9</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:24px;height:24px;background:var(--blue-700);border-radius:1px"></div><span class="hx">24</span><span class="nm">10</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:32px;height:32px;background:var(--blue-700);border-radius:1px"></div><span class="hx">32</span><span class="nm">11</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:40px;height:40px;background:var(--blue-700);border-radius:1px"></div><span class="hx">40</span><span class="nm">12</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:48px;height:48px;background:var(--blue-700);border-radius:1px"></div><span class="hx">48</span><span class="nm">13</span></div><div style="display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:64px;height:64px;background:var(--blue-700);border-radius:1px"></div><span class="hx">64</span><span class="nm">14</span></div></div></div>
+<div class="g2">
+<div class="panel"><div class="dlbl">Control heights — 28px default, 24px in dense chrome</div>
+<div style="display:flex;gap:12px;align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="display:flex;align-items:center;justify-content:center;height:20px;padding:0 12px;background:var(--action-secondary-bg);border:1px solid var(--action-secondary-border);border-radius:var(--radius-md);box-shadow:var(--shadow-1);font-size:11px;font-weight:500;color:var(--text-body)">Button</div><span class="hx">20px</span><span class="nm">--control-xs</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="display:flex;align-items:center;justify-content:center;height:24px;padding:0 12px;background:var(--action-secondary-bg);border:1px solid var(--action-secondary-border);border-radius:var(--radius-md);box-shadow:var(--shadow-1);font-size:13px;font-weight:500;color:var(--text-body)">Button</div><span class="hx">24px</span><span class="nm">--control-sm</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="display:flex;align-items:center;justify-content:center;height:28px;padding:0 12px;background:var(--action-secondary-bg);border:1px solid var(--action-secondary-border);border-radius:var(--radius-md);box-shadow:var(--shadow-1);font-size:13px;font-weight:500;color:var(--text-body)">Button</div><span class="hx">28px</span><span class="nm">--control-md</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="display:flex;align-items:center;justify-content:center;height:34px;padding:0 12px;background:var(--action-secondary-bg);border:1px solid var(--action-secondary-border);border-radius:var(--radius-md);box-shadow:var(--shadow-1);font-size:13px;font-weight:500;color:var(--text-body)">Button</div><span class="hx">34px</span><span class="nm">--control-lg</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="display:flex;align-items:center;justify-content:center;height:40px;padding:0 12px;background:var(--action-secondary-bg);border:1px solid var(--action-secondary-border);border-radius:var(--radius-md);box-shadow:var(--shadow-1);font-size:13px;font-weight:500;color:var(--text-body)">Button</div><span class="hx">40px</span><span class="nm">--control-xl</span></div></div></div>
+<div class="panel"><div class="dlbl">Corner radii — 5px is the control and card default</div>
+<div style="display:flex;gap:14px;align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:52px;height:40px;background:var(--ink-100);border:1px solid var(--border-default);border-radius:2px"></div><span class="hx">2px</span><span class="nm">--radius-xs</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:52px;height:40px;background:var(--ink-100);border:1px solid var(--border-default);border-radius:3px"></div><span class="hx">3px</span><span class="nm">--radius-sm</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:52px;height:40px;background:var(--ink-100);border:1px solid var(--border-default);border-radius:5px"></div><span class="hx">5px</span><span class="nm">--radius-md</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:52px;height:40px;background:var(--ink-100);border:1px solid var(--border-default);border-radius:8px"></div><span class="hx">8px</span><span class="nm">--radius-lg</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:52px;height:40px;background:var(--ink-100);border:1px solid var(--border-default);border-radius:12px"></div><span class="hx">12px</span><span class="nm">--radius-xl</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:52px;height:40px;background:var(--ink-100);border:1px solid var(--border-default);border-radius:999px"></div><span class="hx">pill</span><span class="nm">--radius-pill</span></div></div></div></div>
+<div class="panel"><div class="dlbl">Layout dimensions</div><table class="ref"><tr><th>Token</th><th>Value</th><th>Token</th><th>Value</th></tr>
+<tr><td class="mono">--sidebar-w</td><td class="mono">216px</td><td class="mono">--panel-w</td><td class="mono">320px</td></tr><tr><td class="mono">--sidebar-w-collapsed</td><td class="mono">48px</td><td class="mono">--gutter</td><td class="mono">16px</td></tr><tr><td class="mono">--topbar-h</td><td class="mono">44px</td><td class="mono">--page-max</td><td class="mono">1440px</td></tr><tr><td class="mono">--subbar-h</td><td class="mono">34px</td><td class="mono">--row-h</td><td class="mono">30px</td></tr><tr><td class="mono">--border-w</td><td class="mono">1px</td><td class="mono">--row-h-dense</td><td class="mono">26px</td></tr>
+</table></div>
+<div class="panel"><div class="dlbl">Density in use — 30px rows vs 26px dense</div>
+<div style="display:flex;gap:18px"><div style="flex:1 1 0"><div class="nm" style="margin-bottom:6px">Default 30px</div><div style="border:1px solid var(--border-default);border-radius:var(--radius-md);overflow:hidden">
+<div style="display:flex;height:34px;align-items:center;padding:0 12px;background:var(--surface-table-head);border-bottom:1px solid var(--border-default);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-secondary)">Sleeve<span style="margin-left:auto">% NAV</span></div>
+<div style="display:flex;height:30px;align-items:center;padding:0 12px;border-bottom:1px solid var(--border-subtle);font-size:13px;color:var(--text-body)">Stat arb<span style="margin-left:auto;font-family:var(--font-mono);font-variant-numeric:tabular-nums">14.1%</span></div><div style="display:flex;height:30px;align-items:center;padding:0 12px;border-bottom:1px solid var(--border-subtle);font-size:13px;color:var(--text-body)">Momentum<span style="margin-left:auto;font-family:var(--font-mono);font-variant-numeric:tabular-nums">12.6%</span></div><div style="display:flex;height:30px;align-items:center;padding:0 12px;border-bottom:1px solid var(--border-subtle);font-size:13px;color:var(--text-body)">Vol carry<span style="margin-left:auto;font-family:var(--font-mono);font-variant-numeric:tabular-nums">11.5%</span></div>
+</div></div><div style="flex:1 1 0"><div class="nm" style="margin-bottom:6px">Dense 26px</div><div style="border:1px solid var(--border-default);border-radius:var(--radius-md);overflow:hidden">
+<div style="display:flex;height:34px;align-items:center;padding:0 12px;background:var(--surface-table-head);border-bottom:1px solid var(--border-default);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-secondary)">Sleeve<span style="margin-left:auto">% NAV</span></div>
+<div style="display:flex;height:26px;align-items:center;padding:0 12px;border-bottom:1px solid var(--border-subtle);font-size:12px;color:var(--text-body)">Stat arb<span style="margin-left:auto;font-family:var(--font-mono);font-variant-numeric:tabular-nums">14.1%</span></div><div style="display:flex;height:26px;align-items:center;padding:0 12px;border-bottom:1px solid var(--border-subtle);font-size:12px;color:var(--text-body)">Momentum<span style="margin-left:auto;font-family:var(--font-mono);font-variant-numeric:tabular-nums">12.6%</span></div><div style="display:flex;height:26px;align-items:center;padding:0 12px;border-bottom:1px solid var(--border-subtle);font-size:12px;color:var(--text-body)">Vol carry<span style="margin-left:auto;font-family:var(--font-mono);font-variant-numeric:tabular-nums">11.5%</span></div>
+</div></div></div></div>
+
+<h2 class="sec" id="depth">Elevation &amp; motion</h2>
+<div class="panel"><div class="dlbl">Shadow scale — flat in page; elevation means floating, not important</div>
+<div style="display:flex;gap:18px;align-items:flex-end"><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:50px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-none)"></div><span class="nm">--shadow-none</span><span class="hx">In-page cards</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:50px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-1)"></div><span class="nm">--shadow-1</span><span class="hx">Controls</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:50px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-2)"></div><span class="nm">--shadow-2</span><span class="hx">Hover lift</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:50px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-3)"></div><span class="nm">--shadow-3</span><span class="hx">Popover</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:50px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-4)"></div><span class="nm">--shadow-4</span><span class="hx">Dialog</span></div></div></div>
+<div class="g2">
+<div class="panel"><div class="dlbl">Borders &amp; focus</div>
+<div style="display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:42px;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md)"></div><span class="nm">--border-subtle</span><span class="hx">Row dividers</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:42px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md)"></div><span class="nm">--border-default</span><span class="hx">Cards, fields</span></div><div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:100px;height:42px;background:var(--surface-card);border:1px solid var(--border-strong-c);border-radius:var(--radius-md)"></div><span class="nm">--border-strong-c</span><span class="hx">Emphasis</span></div>
+<div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="display:flex;align-items:center;width:130px;height:28px;padding:0 10px;background:var(--field-bg);border:1px solid var(--border-focus);border-radius:var(--radius-md);box-shadow:var(--focus-ring);font-size:13px;color:var(--text-primary)">Focused</div><span class="nm">--focus-ring</span></div></div></div>
+<div class="panel"><div class="dlbl">Duration &amp; easing</div><table class="ref"><tr><th>Token</th><th>Value</th><th>Used for</th></tr>
+<tr><td class="mono">--dur-instant</td><td class="mono">80ms</td><td>Hover, press</td></tr><tr><td class="mono">--dur-fast</td><td class="mono">120ms</td><td>Colour, focus</td></tr><tr><td class="mono">--dur-base</td><td class="mono">180ms</td><td>Expand, reveal</td></tr><tr><td class="mono">--dur-slow</td><td class="mono">260ms</td><td>Chart draw</td></tr><tr><td class="mono">--dur-slower</td><td class="mono">400ms</td><td>Route change</td></tr><tr><td class="mono">--ease-out</td><td class="mono">cubic-bezier(.2,.8,.3,1)</td><td>Default</td></tr><tr><td class="mono">--ease-snap</td><td class="mono">cubic-bezier(.3,1.3,.6,1)</td><td>Switch knob only</td></tr>
+</table></div></div>
+
+<h2 class="sec" id="inventory">Component inventory</h2>
+<p class="body">31 components in 7 groups. Consumers read them off the compiled bundle as <code>window.BasisDesignSystem_6e7350.&lt;Name&gt;</code>; each has a props contract and a usage note in the source tree. Props below are the public API.</p>
+<div class="panel"><table class="ref"><tr><th>Component</th><th>Group</th><th>What &amp; when</th><th>Props</th></tr><tr><td class="cn">Icon</td><td class="cg">primitives</td><td>Small Lucide glyph rendered as inline SVG; inherits currentColor.</td><td class="cp">name · size (12 cell / 14 control / 16 nav) · color · strokeWidth · title</td></tr><tr><td class="cn">Button</td><td class="cg">primitives</td><td>The standard action control; 28px default, 24px in toolbars and rows.</td><td class="cp">variant primary|secondary|ghost|danger|link · size xs|sm|md|lg · iconLeft · iconRight · loading · selected · fullWidth · disabled</td></tr><tr><td class="cn">IconButton</td><td class="cg">primitives</td><td>Icon-only square control for dense chrome. Always pass label.</td><td class="cp">icon · label (required in practice) · size xs|sm|md|lg · variant ghost|outline · selected · disabled</td></tr><tr><td class="cn">Badge</td><td class="cg">primitives</td><td>Status pill for machine-owned state (Live, Stale, Breach, Draft).</td><td class="cp">tone neutral|info|positive|negative|caution|brand · size sm|md · icon · dot · subtle</td></tr><tr><td class="cn">Tag</td><td class="cg">primitives</td><td>Pill for user-applied labels and active filters. Rounded, unlike Badge.</td><td class="cp">icon · onRemove · color (bind to a --chart-* token) · interactive</td></tr><tr><td class="cn">Card</td><td class="cg">primitives</td><td>The module container. Hairline border, 5px radius, flat in page.</td><td class="cp">title · subtitle · icon · actions · footer · padding none|sm|md|lg · elevation 0–3 · dense · bodyStyle</td></tr><tr><td class="cn">Field</td><td class="cg">forms</td><td>Label / hint / error scaffold shared by every input.</td><td class="cp">label · hint · error · required · htmlFor · inline (120px label column)</td></tr><tr><td class="cn">Input</td><td class="cg">forms</td><td>Text or number field. Always mono for figures.</td><td class="cp">size sm|md|lg · iconLeft · iconRight · prefix · suffix · invalid · mono · fullWidth · onClear</td></tr><tr><td class="cn">Select</td><td class="cg">forms</td><td>Dropdown for 4+ mutually exclusive options.</td><td class="cp">options [{value,label,disabled}] · size · iconLeft · invalid · fullWidth</td></tr><tr><td class="cn">Checkbox</td><td class="cg">forms</td><td>14px checkbox; supports indeterminate for grouped rows.</td><td class="cp">checked · indeterminate · onChange(next) · label · description · disabled</td></tr><tr><td class="cn">Radio</td><td class="cg">forms</td><td>Group for exclusive options that need explanatory sub-copy.</td><td class="cp">options [{value,label,description,disabled}] · value · onChange · direction row|column</td></tr><tr><td class="cn">Switch</td><td class="cg">forms</td><td>Toggle for settings that apply instantly.</td><td class="cp">checked · onChange(next) · label · size sm|md · disabled</td></tr><tr><td class="cn">SegmentedControl</td><td class="cg">forms</td><td>2–5 exclusive options in one compact row. The default period switcher.</td><td class="cp">options [{value,label,icon}] · value · onChange · size · fullWidth</td></tr><tr><td class="cn">DeltaValue</td><td class="cg">data</td><td>Signed change, colored by direction, tabular mono. The atom of every P&amp;L surface.</td><td class="cp">value · unit % | bps | $ · decimals · size xs–xl · glyph arrow|triangle|none · chip · signed · invert</td></tr><tr><td class="cn">Sparkline</td><td class="cg">data</td><td>Axis-less inline trend. Sits beside the number it describes.</td><td class="cp">data[] · width · height · color · area · baseline · strokeWidth</td></tr><tr><td class="cn">MetricCard</td><td class="cg">data</td><td>Layer-1 KPI tile. onDrill turns it into the entry point to the detail view.</td><td class="cp">label · value · unit · delta · deltaUnit · deltaLabel · spark[] · icon · footnote · onDrill · drillLabel · invertDelta · tone</td></tr><tr><td class="cn">DataTable</td><td class="cg">data</td><td>The workhorse. 30px rows (26 dense), sticky micro-caps header, sortable, expandable detail.</td><td class="cp">columns [{key,label,numeric,align,width,maxWidth,emphasis,muted,sortable,description,render}] · rows · rowKey · dense · striped · sort · onSortChange · selectable · selected · onSelectedChange · expandedKey · onRowClick · renderDetail · stickyHeader · maxHeight</td></tr><tr><td class="cn">ChartLegend</td><td class="cg">charts</td><td>Series key. Sits above the plot and carries the latest value.</td><td class="cp">series [{key,label,color,dashed,value}] · hidden[] · onToggle · size · direction</td></tr><tr><td class="cn">LineChart</td><td class="cg">charts</td><td>Time series. Width auto-fits; horizontal gridlines only; dashed crosshair on hover.</td><td class="cp">series [{key,data,color,dashed}] · labels[] · height · width · padding · yTicks · zeroLine · formatY · area · hidden[]</td></tr><tr><td class="cn">BarChart</td><td class="cg">charts</td><td>Categorical comparison. Horizontal for named categories, vertical for periods.</td><td class="cp">data [{label,value,color}] · orientation · height · color · signed · formatValue · showValues · barSize · gap</td></tr><tr><td class="cn">DonutChart</td><td class="cg">charts</td><td>Composition ring with the total in the middle. Six slices maximum.</td><td class="cp">data [{label,value,color}] · size · thickness · total · label · formatTotal</td></tr><tr><td class="cn">BarMeter</td><td class="cg">charts</td><td>Inline limit-utilisation bar. Turns red past limit and marks it.</td><td class="cp">value · max · limit · color · height · width · showValue · formatValue</td></tr><tr><td class="cn">Alert</td><td class="cg">feedback</td><td>Inline, persistent message about the current view.</td><td class="cp">tone info|positive|caution|negative|neutral · title · icon · actions · onDismiss · compact</td></tr><tr><td class="cn">Toast</td><td class="cg">feedback</td><td>Transient confirmation, bottom-right, 320px, dark surface.</td><td class="cp">tone · title · action · onDismiss</td></tr><tr><td class="cn">Tooltip</td><td class="cg">feedback</td><td>Hover/focus explanation, one or two lines.</td><td class="cp">content · placement top|bottom|left|right · delay · maxWidth</td></tr><tr><td class="cn">Dialog</td><td class="cg">feedback</td><td>Centered modal for focused tasks and confirmations.</td><td class="cp">open · title · subtitle · icon · footer · onClose · width</td></tr><tr><td class="cn">Tabs</td><td class="cg">navigation</td><td>Underline tabs for switching layers inside one subject.</td><td class="cp">tabs [{value,label,icon,count}] · value · onChange · size sm|md · actions</td></tr><tr><td class="cn">SideNav</td><td class="cg">navigation</td><td>216px module rail (48px collapsed). Sections group modules.</td><td class="cp">items [{value,label,icon,badge,children,section}] · value · onChange · header · footer · collapsed</td></tr><tr><td class="cn">Breadcrumb</td><td class="cg">navigation</td><td>Drill-path trail. Required on second-level drill views.</td><td class="cp">items [{value,label,icon}] · onNavigate(value,index)</td></tr><tr><td class="cn">Accordion</td><td class="cg">disclosure</td><td>Progressive disclosure. Collapsed rows carry the numbers.</td><td class="cp">items [{key,label,summary,icon,content}] · openKeys[] · onToggle · dense</td></tr><tr><td class="cn">Popover</td><td class="cg">disclosure</td><td>Click-anchored panel: column pickers, methodology notes, mini-forms.</td><td class="cp">trigger · open · onOpenChange · placement · width · title</td></tr></table></div>
+<h4 class="sub4">Intentional additions beyond a standard set</h4>
+<ul class="body">
+<li><strong>Icon</strong> — wrapper for the glyph set; keeps sizes consistent and makes the icon source swappable in one file.</li>
+<li><strong>Field</strong> — shared label/hint/error scaffold so micro-caps labels stay consistent.</li>
+<li><strong>SegmentedControl</strong> — period and view switching is constant here; a Select would be slower and taller.</li>
+<li><strong>DeltaValue, Sparkline, MetricCard, DataTable</strong> — the summary→detail layering is not expressible with generic primitives.</li>
+<li><strong>ChartLegend, LineChart, BarChart, DonutChart, BarMeter</strong> — shipping an extended chart palette without chart components would leave the most important surface undefined.</li>
+<li><strong>Accordion, Popover</strong> — the "dig deeper without leaving the view" requirement.</li>
+</ul>
+
+<h2 class="sec" id="ex-primitives">Primitives</h2><div id="mount-primitives"></div>
+<h2 class="sec" id="ex-forms">Forms</h2><div id="mount-forms"></div>
+<h2 class="sec" id="ex-data">Data</h2><div id="mount-data"></div>
+<h2 class="sec" id="ex-charts">Charts</h2><div id="mount-charts"></div>
+<h2 class="sec" id="ex-feedback">Feedback</h2><div id="mount-feedback"></div>
+<h2 class="sec" id="ex-nav">Navigation &amp; disclosure</h2><div id="mount-nav"></div>
+
+<h2 class="sec" id="tokens">Token source</h2>
+<p class="body">The complete CSS. <code>styles.css</code> is the entry point consumers link; it is an <code>@import</code> list only. Everything below is enough to rebuild the system from scratch.</p>
+<h3 class="fn">styles.css</h3><pre class="code">/* Basis Design System — global entry. Imports only. */
+@import url("tokens/fonts.css");
+@import url("tokens/palette.css");
+@import url("tokens/charts.css");
+@import url("tokens/typography.css");
+@import url("tokens/space.css");
+@import url("tokens/elevation.css");
+@import url("tokens/motion.css");
+@import url("tokens/semantic.css");
+@import url("tokens/base.css");
+</pre><h3 class="fn">tokens/fonts.css</h3><pre class="code">/* Webfonts. No vendor font binaries were supplied with this brief, so the
+   three families below are the actual chosen faces, served from Google Fonts.
+   Replace with self-hosted @font-face rules if licensed files arrive. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=Roboto+Mono:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap");
+</pre><h3 class="fn">tokens/palette.css</h3><pre class="code">:root{
+/* Ink — cool near-black neutral ramp */
+--ink-950:#0A0E14;--ink-900:#10161F;--ink-800:#1A2230;--ink-700:#2A3444;--ink-600:#3E4A5C;
+--ink-500:#5A6779;--ink-400:#7A8798;--ink-300:#A3AEBC;--ink-200:#C9D1DB;--ink-150:#DDE3EA;
+--ink-100:#EBEFF4;--ink-50:#F5F7FA;--ink-25:#FAFBFD;--white:#FFFFFF;
+/* Blue — primary brand */
+--blue-950:#03204F;--blue-900:#062A6E;--blue-800:#0A3A96;--blue-700:#0B4FD9;--blue-600:#2467E8;
+--blue-500:#3B7DF5;--blue-400:#6C9FF9;--blue-300:#8FB6FB;--blue-200:#C2D8FE;--blue-100:#E4EEFF;--blue-50:#F2F7FF;
+/* Sky — light blue, secondary brand */
+--sky-900:#08415A;--sky-800:#0A6288;--sky-700:#0F7FAE;--sky-600:#1D9BC7;--sky-500:#3EB0D8;
+--sky-400:#58C0E0;--sky-300:#8AD4EC;--sky-200:#BEE8F5;--sky-100:#E0F4FB;--sky-50:#F1FAFD;
+/* Green — positive / long */
+--green-800:#0A5C41;--green-700:#0C7350;--green-600:#0E8A5F;--green-500:#28A377;--green-300:#7FCFB0;--green-100:#DFF3EA;--green-50:#F1FAF6;
+/* Red — negative / short / destructive */
+--red-800:#8E1631;--red-700:#B31E41;--red-600:#D62B4E;--red-500:#E4526E;--red-300:#F09CAD;--red-100:#FCE4E9;--red-50:#FEF3F5;
+/* Amber — caution */
+--amber-800:#8A5308;--amber-700:#A66208;--amber-600:#C0790C;--amber-500:#DDA02A;--amber-300:#F0CE85;--amber-100:#FBEFD6;--amber-50:#FEF9EF;
+/* Violet — tertiary accent (charts, tags) */
+--violet-700:#5238B8;--violet-600:#6C4FD9;--violet-300:#B7A6F2;--violet-100:#ECE6FD;
+/* Alpha overlays */
+--alpha-ink-04:rgba(10,14,20,.04);--alpha-ink-06:rgba(10,14,20,.06);--alpha-ink-10:rgba(10,14,20,.10);
+--alpha-ink-16:rgba(10,14,20,.16);--alpha-ink-40:rgba(10,14,20,.40);--alpha-ink-64:rgba(10,14,20,.64);
+--alpha-white-08:rgba(255,255,255,.08);--alpha-white-12:rgba(255,255,255,.12);--alpha-white-64:rgba(255,255,255,.64);
+--alpha-blue-12:rgba(11,79,217,.12);--alpha-blue-20:rgba(11,79,217,.20);
+}</pre><h3 class="fn">tokens/charts.css</h3><pre class="code">:root{
+/* Categorical — brand first, then professional accents. Use in order. */
+--chart-1:#0B4FD9;--chart-2:#1D9BC7;--chart-3:#0E8A5F;--chart-4:#D62B4E;--chart-5:#C0790C;--chart-6:#6C4FD9;
+--chart-7:#0A3A96;--chart-8:#4FB3A0;--chart-9:#A8582A;--chart-10:#7A8798;--chart-11:#B84592;--chart-12:#5C7F0E;
+/* Sequential — single-series intensity (light → dark) */
+--seq-blue-1:#EAF1FE;--seq-blue-2:#C8DBFC;--seq-blue-3:#9BBEF8;--seq-blue-4:#6699F1;
+--seq-blue-5:#3B7DF5;--seq-blue-6:#0B4FD9;--seq-blue-7:#0A3A96;--seq-blue-8:#062A6E;
+--seq-sky-1:#EDF9FD;--seq-sky-2:#CDEDF7;--seq-sky-3:#9BDAEE;--seq-sky-4:#5EC2E1;
+--seq-sky-5:#2FA8CE;--seq-sky-6:#0F7FAE;--seq-sky-7:#0A6288;--seq-sky-8:#08415A;
+/* Diverging — signed values, red (negative) → neutral → blue (positive) */
+--div-neg-4:#8E1631;--div-neg-3:#C22447;--div-neg-2:#E4526E;--div-neg-1:#F5C3CD;
+--div-mid:#EBEFF4;
+--div-pos-1:#C2D8FE;--div-pos-2:#6C9FF9;--div-pos-3:#2467E8;--div-pos-4:#0A3A96;
+/* Chart furniture */
+--chart-grid:var(--ink-150);--chart-axis:var(--ink-300);--chart-label:var(--ink-500);
+--chart-plot-bg:transparent;--chart-band:var(--ink-25);--chart-crosshair:var(--ink-400);
+--chart-pos:#0E8A5F;--chart-neg:#D62B4E;--chart-benchmark:var(--ink-400);
+}</pre><h3 class="fn">tokens/typography.css</h3><pre class="code">:root{
+--font-sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+--font-mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+--font-serif:"Newsreader",Georgia,"Times New Roman",serif;
+--font-display:var(--font-sans);
+/* Size ramp — compact by default; app chrome lives at 11–13px */
+--text-3xs:10px;--text-2xs:11px;--text-xs:12px;--text-sm:13px;--text-base:14px;--text-md:15px;
+--text-lg:16px;--text-xl:18px;--text-2xl:22px;--text-3xl:28px;--text-4xl:36px;--text-5xl:48px;--text-6xl:64px;
+/* Line heights */
+--leading-flat:1;--leading-tight:1.2;--leading-snug:1.35;--leading-normal:1.5;--leading-relaxed:1.65;
+/* Weights */
+--weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+/* Tracking */
+--tracking-display:-0.022em;--tracking-heading:-0.012em;--tracking-normal:0;
+--tracking-wide:0.02em;--tracking-caps:0.07em;
+/* Numerics — every figure in a table or KPI is tabular */
+--numeric-tabular:tabular-nums; /* @kind other */
+--font-feature-tabular:"tnum" 1,"cv01" 1; /* @kind other */
+}</pre><h3 class="fn">tokens/space.css</h3><pre class="code">:root{
+/* 2px base, compact. --space-4 (8px) is the default gap inside controls. */
+--space-0:0;--space-1:2px;--space-2:4px;--space-3:6px;--space-4:8px;--space-5:10px;--space-6:12px;
+--space-7:14px;--space-8:16px;--space-9:20px;--space-10:24px;--space-11:32px;--space-12:40px;--space-13:48px;--space-14:64px;
+/* Radii — small and deliberate */
+--radius-xs:2px;--radius-sm:3px;--radius-md:5px;--radius-lg:8px;--radius-xl:12px;--radius-pill:999px;
+/* Control heights — the compactness contract */
+--control-xs:20px;--control-sm:24px;--control-md:28px;--control-lg:34px;--control-xl:40px;
+/* Layout */
+--sidebar-w:216px;--sidebar-w-collapsed:48px;--topbar-h:44px;--subbar-h:34px;
+--panel-w:320px;--gutter:16px;--page-max:1440px;--row-h:30px;--row-h-dense:26px;
+--border-w:1px;--border-w-thick:2px;--focus-ring-w:3px;
+}</pre><h3 class="fn">tokens/elevation.css</h3><pre class="code">:root{
+--shadow-none:none;
+--shadow-1:0 1px 1px rgba(10,14,20,.05);
+--shadow-2:0 1px 2px rgba(10,14,20,.06),0 2px 5px -1px rgba(10,14,20,.07);
+--shadow-3:0 1px 2px rgba(10,14,20,.05),0 6px 14px -3px rgba(10,14,20,.10);
+--shadow-4:0 2px 4px rgba(10,14,20,.05),0 16px 32px -8px rgba(10,14,20,.16);
+--shadow-inset-top:inset 0 1px 0 rgba(255,255,255,.5);
+--shadow-inset-field:inset 0 1px 2px rgba(10,14,20,.05);
+--focus-ring:0 0 0 3px rgba(11,79,217,.20);
+--focus-ring-danger:0 0 0 3px rgba(214,43,78,.20);
+--border-hairline:1px solid var(--ink-150);
+--border-strong:1px solid var(--ink-200);
+--blur-panel:blur(10px) saturate(140%); /* @kind other */
+}</pre><h3 class="fn">tokens/motion.css</h3><pre class="code">:root{
+--dur-instant:80ms; /* @kind other */
+--dur-fast:120ms; /* @kind other */
+--dur-base:180ms; /* @kind other */
+--dur-slow:260ms; /* @kind other */
+--dur-slower:400ms; /* @kind other */
+--ease-out:cubic-bezier(.2,.8,.3,1); /* @kind other */
+--ease-in:cubic-bezier(.5,0,1,1); /* @kind other */
+--ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+--ease-snap:cubic-bezier(.3,1.3,.6,1); /* @kind other */
+--transition-control:background-color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out); /* @kind other */
+}</pre><h3 class="fn">tokens/semantic.css</h3><pre class="code">:root{
+color-scheme:light;
+/* Surfaces */
+--surface-app:var(--ink-50);--surface-card:var(--white);--surface-raised:var(--white);
+--surface-sunken:var(--ink-100);--surface-chrome:var(--white);--surface-inverse:var(--ink-900);
+--surface-hover:var(--ink-50);--surface-active:var(--ink-100);--surface-selected:var(--blue-50);
+--surface-table-head:var(--ink-25);--surface-table-stripe:var(--ink-25);
+--surface-overlay:var(--alpha-ink-40);--surface-tooltip:var(--ink-900);
+/* Text */
+--text-primary:var(--ink-900);--text-body:var(--ink-800);--text-secondary:var(--ink-500);
+--text-tertiary:var(--ink-400);--text-disabled:var(--ink-300);--text-inverse:var(--white);
+--text-link:var(--blue-700);--text-link-hover:var(--blue-800);--text-brand:var(--blue-700);
+--text-positive:var(--green-700);--text-negative:var(--red-700);--text-caution:var(--amber-700);
+/* Borders */
+--border-subtle:var(--ink-100);--border-default:var(--ink-150);--border-strong-c:var(--ink-200);
+--border-focus:var(--blue-700);--border-inverse:var(--alpha-white-12);
+/* Interactive — primary */
+--action-primary-bg:var(--blue-700);--action-primary-bg-hover:var(--blue-800);--action-primary-bg-active:var(--blue-900);
+--action-primary-fg:var(--white);
+--action-secondary-bg:var(--white);--action-secondary-bg-hover:var(--ink-50);--action-secondary-bg-active:var(--ink-100);
+--action-secondary-fg:var(--ink-800);--action-secondary-border:var(--ink-200);
+--action-ghost-fg:var(--ink-600);--action-ghost-bg-hover:var(--ink-100);
+--action-danger-bg:var(--red-600);--action-danger-bg-hover:var(--red-700);
+/* Fields */
+--field-bg:var(--white);--field-bg-disabled:var(--ink-50);--field-border:var(--ink-200);
+--field-border-hover:var(--ink-300);--field-placeholder:var(--ink-400);
+/* Status */
+--status-info-bg:var(--blue-50);--status-info-fg:var(--blue-800);--status-info-border:var(--blue-200);
+--status-positive-bg:var(--green-50);--status-positive-fg:var(--green-800);--status-positive-border:var(--green-300);
+--status-negative-bg:var(--red-50);--status-negative-fg:var(--red-800);--status-negative-border:var(--red-300);
+--status-caution-bg:var(--amber-50);--status-caution-fg:var(--amber-800);--status-caution-border:var(--amber-300);
+--status-neutral-bg:var(--ink-100);--status-neutral-fg:var(--ink-700);--status-neutral-border:var(--ink-200);
+/* Data direction */
+--value-up:var(--green-600);--value-down:var(--red-600);--value-flat:var(--ink-400);
+--value-up-bg:var(--green-100);--value-down-bg:var(--red-100);
+}
+[data-theme="dark"]{
+color-scheme:dark;
+--surface-app:#080B10;--surface-card:var(--ink-900);--surface-raised:var(--ink-800);
+--surface-sunken:#0C1118;--surface-chrome:var(--ink-900);--surface-inverse:var(--white);
+--surface-hover:var(--ink-800);--surface-active:var(--ink-700);--surface-selected:#12274F;
+--surface-table-head:#0E141C;--surface-table-stripe:#0E141C;
+--surface-overlay:rgba(4,6,10,.64);--surface-tooltip:var(--ink-700);
+--text-primary:#F2F5F9;--text-body:var(--ink-150);--text-secondary:var(--ink-400);
+--text-tertiary:var(--ink-500);--text-disabled:var(--ink-600);--text-inverse:var(--ink-950);
+--text-link:var(--blue-300);--text-link-hover:var(--blue-200);--text-brand:var(--blue-400);
+--text-positive:var(--green-300);--text-negative:var(--red-300);--text-caution:var(--amber-300);
+--border-subtle:#18202B;--border-default:var(--ink-800);--border-strong-c:var(--ink-700);
+--border-focus:var(--blue-500);--border-inverse:var(--alpha-white-12);
+--action-primary-bg:var(--blue-600);--action-primary-bg-hover:var(--blue-500);--action-primary-bg-active:var(--blue-700);
+--action-primary-fg:var(--white);
+--action-secondary-bg:var(--ink-800);--action-secondary-bg-hover:var(--ink-700);--action-secondary-bg-active:var(--ink-600);
+--action-secondary-fg:var(--ink-150);--action-secondary-border:var(--ink-700);
+--action-ghost-fg:var(--ink-300);--action-ghost-bg-hover:var(--ink-800);
+--action-danger-bg:var(--red-600);--action-danger-bg-hover:var(--red-500);
+--field-bg:#0C1118;--field-bg-disabled:var(--ink-900);--field-border:var(--ink-700);
+--field-border-hover:var(--ink-600);--field-placeholder:var(--ink-500);
+--status-info-bg:#0D1F3D;--status-info-fg:var(--blue-200);--status-info-border:#1B3B72;
+--status-positive-bg:#08281E;--status-positive-fg:var(--green-300);--status-positive-border:#14543C;
+--status-negative-bg:#2C0E17;--status-negative-fg:var(--red-300);--status-negative-border:#6B1930;
+--status-caution-bg:#2A1D06;--status-caution-fg:var(--amber-300);--status-caution-border:#6B4507;
+--status-neutral-bg:var(--ink-800);--status-neutral-fg:var(--ink-200);--status-neutral-border:var(--ink-700);
+--value-up:#3FBE8C;--value-down:#F0637F;--value-flat:var(--ink-500);
+--value-up-bg:#0C3327;--value-down-bg:#3A1220;
+--shadow-1:0 1px 1px rgba(0,0,0,.4);
+--shadow-2:0 1px 2px rgba(0,0,0,.4),0 2px 5px -1px rgba(0,0,0,.45);
+--shadow-3:0 1px 2px rgba(0,0,0,.4),0 6px 14px -3px rgba(0,0,0,.5);
+--shadow-4:0 2px 4px rgba(0,0,0,.4),0 16px 32px -8px rgba(0,0,0,.6);
+--shadow-inset-top:inset 0 1px 0 rgba(255,255,255,.06);
+--chart-grid:#1B232F;--chart-axis:var(--ink-700);--chart-label:var(--ink-400);--chart-band:#0E141C;
+}</pre><h3 class="fn">tokens/base.css</h3><pre class="code">*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--surface-app);color:var(--text-body);font-family:var(--font-sans);font-size:var(--text-sm);line-height:var(--leading-normal);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4,h5,h6{margin:0;color:var(--text-primary);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-heading);line-height:var(--leading-tight)}
+h1{font-size:var(--text-3xl);letter-spacing:var(--tracking-display)}
+h2{font-size:var(--text-2xl)}h3{font-size:var(--text-xl)}h4{font-size:var(--text-lg)}h5{font-size:var(--text-base)}h6{font-size:var(--text-sm)}
+p{margin:0 0 var(--space-6)}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid transparent;transition:color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+a:hover{color:var(--text-link-hover);border-bottom-color:currentColor}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+code,kbd,samp,pre{font-family:var(--font-mono);font-size:.92em}
+table{border-collapse:separate;border-spacing:0}
+.num,.tnum{font-variant-numeric:var(--numeric-tabular);font-feature-settings:var(--font-feature-tabular)}
+.eyebrow{font-size:var(--text-2xs);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-secondary)}
+.prose-serif{font-family:var(--font-serif);font-size:var(--text-md);line-height:var(--leading-relaxed);color:var(--text-body)}
+@keyframes basis-spin{to{transform:rotate(360deg)}}
+@keyframes basis-fade-in{from{opacity:0}to{opacity:1}}
+@keyframes basis-pop-in{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes basis-pulse{0%,100%{opacity:1}50%{opacity:.45}}
+::selection{background:var(--alpha-blue-20)}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:var(--ink-200);border:3px solid transparent;background-clip:content-box;border-radius:999px}
+*::-webkit-scrollbar-thumb:hover{background:var(--ink-300);background-clip:content-box}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</pre>
+</div>
+
+<script>
+document.querySelectorAll('.hx[data-hex]').forEach(function(el){
+  var v=el.getAttribute('data-hex');
+  var c=getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  el.textContent=c;
+});
+if(window.lucide) lucide.createIcons({attrs:{'stroke-width':2}});
+</script>
+<script type="text/babel">
+function __refBoot(){
+if(window.__refBooted) return; window.__refBooted=true;
+const N=window.BasisDesignSystem_6e7350;
+const { Icon, Button, IconButton, Badge, Tag, Card, Field, Input, Select, Checkbox, Radio, Switch, SegmentedControl,
+  DeltaValue, Sparkline, MetricCard, DataTable, ChartLegend, LineChart, BarChart, DonutChart, BarMeter,
+  Alert, Toast, Tooltip, Dialog, Tabs, SideNav, Breadcrumb, Accordion, Popover } = N;
+const s=(n,d,a)=>Array.from({length:n},(_,i)=>Math.sin(i/2.4)*(a||2)+i*d);
+const L=({children})=><div className="dlbl">{children}</div>;
+const Box=({label,children,style})=>(<div className="demo" style={style}><L>{label}</L>{children}</div>);
+
+function Primitives(){
+  return (<>
+    <Box label="Button — variants"><div className="row">
+      <Button variant="primary" iconLeft="play">Run backtest</Button>
+      <Button>Secondary</Button>
+      <Button variant="ghost" iconLeft="download">Export</Button>
+      <Button variant="danger" iconLeft="trash-2">Delete</Button>
+      <Button variant="link" iconRight="external-link">Docs</Button>
+      <Button disabled>Disabled</Button>
+      <Button variant="primary" loading>Loading</Button>
+      <Button selected iconLeft="filter">Selected</Button>
+    </div></Box>
+    <Box label="Button — sizes xs / sm / md / lg · icon buttons"><div className="row">
+      <Button size="xs">xs</Button><Button size="sm">sm</Button><Button size="md">md</Button><Button size="lg">lg</Button>
+      <span style={{width:16}} />
+      <IconButton icon="settings-2" label="Settings" />
+      <IconButton icon="star" label="Watch" variant="outline" selected />
+      <IconButton icon="maximize-2" label="Expand" size="sm" />
+      <IconButton icon="more-horizontal" label="More" size="xs" />
+    </div></Box>
+    <Box label="Badge — machine-owned status"><div className="row">
+      <Badge tone="positive" dot>Live</Badge><Badge tone="negative" icon="alert-triangle">Limit breach</Badge>
+      <Badge tone="caution">Stale</Badge><Badge tone="info">T+1</Badge>
+      <Badge tone="brand" subtle={false}>Quant</Badge><Badge tone="neutral" size="sm">Draft</Badge>
+    </div></Box>
+    <Box label="Tag — user-applied labels and filters"><div className="row">
+      <Tag icon="filter" onRemove={()=>{}}>Sector: Energy</Tag>
+      <Tag icon="filter" onRemove={()=>{}}>EV/EBITDA &lt; 9×</Tag>
+      <Tag color="var(--chart-2)">Momentum L/S</Tag>
+      <Tag icon="tag" interactive>Refining</Tag>
+    </div></Box>
+    <Box label="Card — header, actions, footer, padding, elevation">
+      <div className="g3">
+        <Card dense title="Exposure" subtitle="Net, % NAV" icon="pie-chart" actions={<IconButton icon="maximize-2" label="Expand" size="sm" />} footer={<span>16:00 ET · PB feed</span>}>
+          <span style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>Flat, hairline, 5px radius.</span></Card>
+        <Card title="No header actions" padding="md">
+          <span style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>Title only.</span></Card>
+        <Card elevation={2} padding="md">
+          <span style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>elevation={2} — hover lift.</span></Card>
+      </div>
+    </Box>
+  </>);
+}
+
+function Forms(){
+  const [q,setQ]=React.useState('XOM US');
+  const [chk,setChk]=React.useState(true);
+  const [r,setR]=React.useState('net');
+  const [sw,setSw]=React.useState(true);
+  const [seg,setSeg]=React.useState('mtd');
+  const [view,setView]=React.useState('table');
+  return (<>
+    <div className="demo"><L>Field + Input + Select — states</L>
+      <div className="g2">
+        <Field label="Search" hint="Ticker, ISIN or name"><Input iconLeft="search" value={q} onChange={e=>setQ(e.target.value)} onClear={()=>setQ('')} /></Field>
+        <Field label="Position limit"><Input mono suffix="% NAV" defaultValue="7.50" /></Field>
+        <Field label="Benchmark"><Select iconLeft="line-chart" options={[{value:'spx',label:'S&P 500'},{value:'rty',label:'Russell 2000'},{value:'msci',label:'MSCI World'}]} /></Field>
+        <Field label="Notional" error="Exceeds sleeve capacity"><Input mono prefix="$" defaultValue="1,250,000" invalid /></Field>
+        <Field label="Owner" inline><Input size="sm" defaultValue="A. Kessler" /></Field>
+        <Field label="Disabled"><Input disabled defaultValue="Locked" /></Field>
+      </div>
+    </div>
+    <Box label="Input sizes sm / md / lg"><div className="row">
+      <Input size="sm" placeholder="Small" fullWidth={false} style={{width:150}} />
+      <Input size="md" placeholder="Medium" fullWidth={false} style={{width:150}} />
+      <Input size="lg" placeholder="Large" fullWidth={false} style={{width:150}} />
+    </div></Box>
+    <Box label="SegmentedControl — period and view switching"><div className="row" style={{gap:18}}>
+      <SegmentedControl size="sm" value={seg} onChange={setSeg} options={[{value:'1d',label:'1D'},{value:'1w',label:'1W'},{value:'mtd',label:'MTD'},{value:'qtd',label:'QTD'},{value:'ytd',label:'YTD'}]} />
+      <SegmentedControl value={view} onChange={setView} options={[{value:'table',icon:'table-2'},{value:'chart',icon:'line-chart'}]} />
+    </div></Box>
+    <Box label="Checkbox · Switch · Radio"><div className="row" style={{gap:36,alignItems:'flex-start'}}>
+      <div className="col" style={{gap:8}}>
+        <Checkbox checked={chk} onChange={setChk} label="Include cash" description="Treats FX sweep as a position" />
+        <Checkbox indeterminate label="Partial selection" />
+        <Checkbox disabled label="Locked" />
+      </div>
+      <div className="col" style={{gap:8}}>
+        <Switch checked={sw} onChange={setSw} label="Live prices" />
+        <Switch checked={false} onChange={()=>{}} label="Show short gross" size="sm" />
+      </div>
+      <Radio name="basis" value={r} onChange={setR} options={[
+        {value:'gross',label:'Gross exposure',description:'Long + short, no netting'},
+        {value:'net',label:'Net exposure'},
+        {value:'beta',label:'Beta-adjusted net'}]} />
+    </div></Box>
+  </>);
+}
+
+function Data(){
+  const [sort,setSort]=React.useState({key:'pnl',dir:'desc'});
+  const [open,setOpen]=React.useState(null);
+  const [sel,setSel]=React.useState([]);
+  const rows=[
+    {id:'1',ticker:'XOM US',name:'Exxon Mobil',wgt:4.2,ret:1.84,pnl:64,spark:s(20,.9)},
+    {id:'2',ticker:'NVDA US',name:'NVIDIA',wgt:3.8,ret:3.02,pnl:112,spark:s(20,1.3)},
+    {id:'3',ticker:'SHEL LN',name:'Shell plc',wgt:-2.1,ret:-0.91,pnl:-24,spark:s(20,-.6)},
+    {id:'4',ticker:'PG US',name:'Procter & Gamble',wgt:-1.9,ret:-1.24,pnl:-37,spark:s(20,-.8)},
+  ];
+  return (<>
+    <Box label="MetricCard — Layer 1 summary tiles, with drill-in on hover">
+      <div className="g3">
+        <MetricCard label="Net exposure" value="42.8" unit="% NAV" delta={-1.4} deltaLabel="vs prior close" icon="scale" spark={s(24,.2,4)} onDrill={()=>{}} footnote="16:00 ET" />
+        <MetricCard label="MTD return" value="+2.41" unit="%" delta={38} deltaUnit="bps" deltaLabel="1D" tone="positive" icon="trending-up" spark={s(24,.9)} />
+        <MetricCard label="Max drawdown" value="−3.90" unit="%" delta={-0.4} invertDelta deltaLabel="60d" tone="caution" icon="trending-down" />
+      </div>
+    </Box>
+    <Box label="DeltaValue · Sparkline"><div className="row" style={{gap:30}}>
+      <div className="row" style={{gap:16}}>
+        <DeltaValue value={1.42} /><DeltaValue value={-38} unit="bps" glyph="triangle" /><DeltaValue value={0} />
+        <DeltaValue value={2.9} chip size="lg" /><DeltaValue value={-1.1} invert unit="%" size="sm" />
+      </div>
+      <div className="row" style={{gap:12}}>
+        <Sparkline data={s(20,.4)} baseline /><Sparkline data={s(20,-.5)} /><Sparkline data={s(20,.15)} color="var(--chart-2)" area={false} width={56} height={16} />
+      </div>
+    </div></Box>
+    <Card padding="none" dense title="DataTable" subtitle="Sortable, selectable, expandable — click a row" icon="table-2" style={{marginBottom:10}} footer={<span>4 of 214 · notional in USD · T+1 book</span>}>
+      <DataTable dense sort={sort} onSortChange={setSort} rows={rows} selectable selected={sel} onSelectedChange={setSel}
+        expandedKey={open} onRowClick={r=>setOpen(open===r.id?null:r.id)}
+        renderDetail={r=>(<div style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>Layer 3 — sleeve, factor loadings and trade history for {r.name}.</div>)}
+        columns={[
+          {key:'ticker',label:'Ticker',emphasis:true,width:110},
+          {key:'name',label:'Name',muted:true,maxWidth:200},
+          {key:'wgt',label:'% NAV',numeric:true,width:90,render:v=>v.toFixed(1)+'%'},
+          {key:'ret',label:'Return',numeric:true,width:100,render:v=><DeltaValue value={v} glyph="none" size="xs" />},
+          {key:'pnl',label:'MTD contrib',numeric:true,width:120,description:'bps of NAV, gross of financing',render:v=><DeltaValue value={v} unit="bps" glyph="none" size="xs" />},
+          {key:'spark',label:'20d',sortable:false,width:90,render:v=><Sparkline data={v} width={72} height={18} />},
+        ]} />
+    </Card>
+  </>);
+}
+
+function Charts(){
+  const [hidden,setHidden]=React.useState([]);
+  const toggle=k=>setHidden(h=>h.includes(k)?h.filter(x=>x!==k):[...h,k]);
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return (<>
+    <div className="g2">
+      <Card dense title="LineChart + ChartLegend" subtitle="Benchmarks are always dashed" icon="line-chart" padding="sm">
+        <ChartLegend hidden={hidden} onToggle={toggle} style={{marginBottom:10}} series={[
+          {key:'fund',label:'Fund',color:'var(--chart-1)',value:'+12.4%'},
+          {key:'bench',label:'S&P 500',color:'var(--chart-benchmark)',dashed:true,value:'+9.1%'}]} />
+        <LineChart height={170} zeroLine labels={months} hidden={hidden} formatY={v=>v.toFixed(0)+'%'} series={[
+          {key:'fund',data:s(12,1.1,2.4),color:'var(--chart-1)'},
+          {key:'bench',data:s(12,.8,1.4),color:'var(--chart-benchmark)',dashed:true}]} />
+      </Card>
+      <Card dense title="DonutChart" subtitle="Total in the middle, six slices max" icon="pie-chart" padding="sm">
+        <div style={{display:'flex',alignItems:'center',gap:22,justifyContent:'center',paddingTop:8}}>
+          <DonutChart size={126} thickness={15} total="$4.2B" label="AUM" data={[
+            {label:'Quant',value:38,color:'var(--chart-1)'},{label:'Fundamental',value:31,color:'var(--chart-2)'},
+            {label:'Macro',value:19,color:'var(--chart-3)'},{label:'Credit',value:12,color:'var(--chart-5)'}]} />
+          <ChartLegend size="sm" direction="column" series={[
+            {key:'q',label:'Quant',color:'var(--chart-1)',value:'38%'},{key:'f',label:'Fundamental',color:'var(--chart-2)',value:'31%'},
+            {key:'m',label:'Macro',color:'var(--chart-3)',value:'19%'},{key:'c',label:'Credit',color:'var(--chart-5)',value:'12%'}]} />
+        </div>
+      </Card>
+      <Card dense title="BarChart — signed, horizontal" subtitle="Attribution, bps" icon="bar-chart-3" padding="sm">
+        <BarChart orientation="horizontal" signed barSize={15} gap={6} formatValue={v=>(v>0?'+':'−')+Math.abs(v)+' bps'} data={[
+          {label:'Energy',value:64},{label:'Technology',value:41},{label:'Financials',value:12},{label:'Health care',value:-18},{label:'Staples',value:-37}]} />
+      </Card>
+      <Card dense title="BarMeter — limit utilisation" subtitle="Red past the limit marker" icon="gauge" padding="sm">
+        <div className="col" style={{gap:10}}>
+          {[['Gross exposure',182,175,220],['Net exposure',42.8,60,80],['Single name',5.4,7.5,10],['VaR (99%)',1.86,2.5,3.5]].map(([l,v,lim,mx])=>(
+            <div key={l}>
+              <div style={{display:'flex',justifyContent:'space-between',fontSize:'var(--text-2xs)',color:'var(--text-secondary)',marginBottom:3}}>
+                <span>{l}</span><span style={{fontFamily:'var(--font-mono)',color:'var(--text-tertiary)'}}>limit {lim}</span></div>
+              <BarMeter value={v} limit={lim} max={mx} showValue formatValue={x=>x.toFixed(1)} />
+            </div>))}
+        </div>
+      </Card>
+    </div>
+    <Box label="BarChart — vertical, signed" style={{marginTop:10}}>
+      <BarChart signed height={130} data={months.map((m,i)=>({label:m,value:[42,-18,64,31,-9,52,12,-27,38,71,-14,29][i]}))} />
+    </Box>
+  </>);
+}
+
+function Feedback(){
+  const [dlg,setDlg]=React.useState(false);
+  return (<>
+    <div className="col" style={{gap:10,marginBottom:10}}>
+      <Alert tone="caution" compact title="Prices delayed 15 minutes" actions={<Button variant="link" size="xs">Reconnect</Button>} onDismiss={()=>{}} />
+      <Alert tone="negative" title="Gross exposure limit breached" actions={<><Button size="sm" variant="ghost" iconLeft="history">Breach log</Button><Button size="sm" iconLeft="eye">Review</Button></>}>
+        Global L/S is at 182% gross against a 175% mandate limit. Opened 14:32 ET, 1h 32m outstanding.
+      </Alert>
+      <Alert tone="positive" compact title="Attribution recalculated on the T+1 book" />
+      <Alert tone="info" compact title="Firm model re-estimated weekly; exposures standardised to a 1-sigma move" />
+    </div>
+    <div className="demo"><L>Toast · Tooltip · Dialog</L>
+      <div className="row" style={{gap:26,alignItems:'flex-start'}}>
+        <Toast tone="positive" title="View saved" onDismiss={()=>{}} action={<Button variant="link" size="xs">Open</Button>}>Filters, sort and column widths kept.</Toast>
+        <div className="col" style={{gap:14}}>
+          <div className="row" style={{gap:6,fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>
+            Beta-adjusted net
+            <Tooltip content="60-day rolling regression against the primary benchmark."><Icon name="info" size={12} color="var(--text-tertiary)" /></Tooltip>
+            <span style={{color:'var(--text-tertiary)'}}>← hover</span>
+          </div>
+          <Button variant="primary" size="sm" iconLeft="plus" onClick={()=>setDlg(true)}>Open dialog</Button>
+        </div>
+      </div>
+      <Dialog open={dlg} onClose={()=>setDlg(false)} title="New screen" icon="filter" subtitle="Saved to your workspace"
+        footer={<><Button size="sm" onClick={()=>setDlg(false)}>Cancel</Button><Button size="sm" variant="primary" onClick={()=>setDlg(false)}>Create</Button></>}>
+        <div className="col" style={{gap:16}}>
+          <Field label="Name"><Input placeholder="e.g. Post-capex FCF inflection" /></Field>
+          <Field label="Extend from" hint="Inherits criteria; override any of them">
+            <Select options={[{value:'none',label:'Nothing — start empty'},{value:'q',label:'Quality compounders'}]} /></Field>
+        </div>
+      </Dialog>
+    </div>
+  </>);
+}
+
+function Nav(){
+  const [nav,setNav]=React.useState('positions');
+  const [tab,setTab]=React.useState('positions');
+  const [open,setOpen]=React.useState(['quant']);
+  const toggle=k=>setOpen(o=>o.includes(k)?o.filter(x=>x!==k):[...o,k]);
+  const sum=(w,d)=>(<><span style={{fontFamily:'var(--font-mono)',fontVariantNumeric:'tabular-nums'}}>{w}% NAV</span><span style={{width:60,display:'inline-flex',justifyContent:'flex-end'}}><DeltaValue value={d} size="xs" /></span></>);
+  return (<>
+    <div className="demo" style={{padding:0,overflow:'hidden'}}>
+      <div style={{display:'flex',height:300}}>
+        <SideNav value={nav} onChange={setNav}
+          header={<span style={{fontSize:15,fontWeight:700,letterSpacing:'-0.03em',color:'var(--text-primary)'}}>Basis</span>}
+          footer={<div style={{display:'flex',alignItems:'center',gap:8,fontSize:'var(--text-2xs)',color:'var(--text-secondary)'}}><Badge tone="positive" size="sm" dot>Live</Badge><span style={{fontFamily:'var(--font-mono)'}}>16:04 ET</span></div>}
+          items={[
+            {section:'Portfolio'},
+            {value:'overview',label:'Overview',icon:'layout-dashboard'},
+            {value:'positions',label:'Positions',icon:'table-2',badge:214,children:[{value:'longs',label:'Longs'},{value:'shorts',label:'Shorts'}]},
+            {value:'attribution',label:'Attribution',icon:'bar-chart-3'},
+            {value:'risk',label:'Risk & limits',icon:'gauge',badge:'1'},
+            {section:'Research'},
+            {value:'screens',label:'Screens',icon:'filter',badge:8},
+            {value:'notes',label:'Notes',icon:'file-text'},
+          ]} />
+        <div style={{flex:'1 1 auto',minWidth:0,padding:'12px 18px'}}>
+          <Breadcrumb items={[{value:'fund',label:'Global L/S Master',icon:'briefcase'},{value:'energy',label:'Energy'},{label:'XOM US'}]} />
+          <div style={{height:10}} />
+          <Tabs size="sm" value={tab} onChange={setTab} actions={<Button size="xs" variant="ghost" iconLeft="download">Export</Button>}
+            tabs={[{value:'summary',label:'Summary',icon:'layout-dashboard'},{value:'positions',label:'Positions',count:214},{value:'attribution',label:'Attribution'},{value:'risk',label:'Risk'}]} />
+          <div style={{fontSize:'var(--text-xs)',color:'var(--text-tertiary)',padding:'12px 0',lineHeight:1.6}}>
+            Rail = modules. Tabs = layers within one subject. Breadcrumb = drill depth.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="demo"><L>Accordion — collapsed rows carry the numbers · Popover — methodology without leaving the view</L>
+      <div style={{display:'flex',justifyContent:'flex-end',marginBottom:10}}>
+        <Popover placement="bottom-end" title="How this is calculated" trigger={<Button size="xs" iconLeft="info">Method</Button>}>
+          Contribution is arithmetic, gross of financing, attributed to the sleeve holding the position at T-1 close.
+        </Popover>
+      </div>
+      <Accordion openKeys={open} onToggle={toggle} items={[
+        {key:'quant',label:'Quant',icon:'cpu',summary:sum(38.2,0.84),content:(
+          <div className="col" style={{gap:8}}>
+            {[['Stat arb',14.1,72],['Cross-sectional momentum',12.6,58],['Vol carry',11.5,44]].map(([l,w,u])=>(
+              <div key={l} className="row" style={{gap:14,fontSize:'var(--text-xs)'}}>
+                <span style={{width:170,color:'var(--text-body)'}}>{l}</span>
+                <span style={{width:74,fontFamily:'var(--font-mono)',fontVariantNumeric:'tabular-nums',color:'var(--text-secondary)'}}>{w}% NAV</span>
+                <BarMeter value={u} limit={80} showValue formatValue={x=>x+'%'} style={{maxWidth:260}} />
+              </div>))}
+          </div>)},
+        {key:'fund',label:'Fundamental',icon:'search',summary:sum(31.4,-0.22),content:<span style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>6 sleeves · 84 names · average holding period 11 months.</span>},
+        {key:'macro',label:'Macro',icon:'globe',summary:sum(19.0,0.31),content:<span style={{fontSize:'var(--text-xs)',color:'var(--text-secondary)'}}>Rates, FX and commodity overlays.</span>},
+      ]} />
+    </div>
+  </>);
+}
+
+[['mount-primitives',Primitives],['mount-forms',Forms],['mount-data',Data],['mount-charts',Charts],['mount-feedback',Feedback],['mount-nav',Nav]]
+  .forEach(function(pair){ ReactDOM.createRoot(document.getElementById(pair[0])).render(React.createElement(pair[1])); });
+}
+(function ready(){
+  var NS=window.BasisDesignSystem_6e7350;
+  var ok=NS&&NS.SideNav&&NS.DataTable&&NS.LineChart&&NS.MetricCard&&NS.Popover&&NS.Accordion
+    &&window.React&&window.ReactDOM&&window.lucide&&document.getElementById('mount-nav');
+  if(ok){ __refBoot(); } else { setTimeout(ready,25); }
+})();
+</script>
+</body></html>
